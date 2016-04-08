@@ -1,0 +1,1 @@
+java -jar springboot.jar –spring.profiles.active=prd
