@@ -10,6 +10,9 @@ public class Page implements Serializable {
 	private String title;
 	private String content;
 	private String uri;
+	private int hits;
+	private int enjoy;
+	private String fileName;
 	public Long getId() {
 		return id;
 	}
@@ -39,6 +42,24 @@ public class Page implements Serializable {
 	}
 	public void setUri(String uri) {
 		this.uri = uri;
+	}
+	public int getHits() {
+		return hits;
+	}
+	public void setHits(int hits) {
+		this.hits = hits;
+	}
+	public int getEnjoy() {
+		return enjoy;
+	}
+	public void setEnjoy(int enjoy) {
+		this.enjoy = enjoy;
+	}
+	public String getFileName() {
+		return fileName;
+	}
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
 	}
 
 }

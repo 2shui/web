@@ -16,6 +16,6 @@ public class App
 {
     public static void main( String[] args )
     {
-    	SpringApplication.run(PageController.class);
+    	SpringApplication.run(App.class, args);
     }
 }

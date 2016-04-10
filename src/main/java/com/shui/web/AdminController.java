@@ -6,24 +6,28 @@ import java.util.List;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Scope;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.shui.web.model.Page;
 import com.shui.web.repo.PageMapper;
+import com.shui.web.server.PageService;
 import com.shui.web.util.Decimal52;
-import com.shui.web.util.FreemarkerUtils;
 import com.shui.web.util.MD5Util;
 
 @RestController
 @SpringBootApplication
 @RequestMapping("/sdstscakfefrfnbb")
 @MapperScan("com.shui.web.repo")
+@Scope("prototype")
 public class AdminController {
 
 	@Autowired
 	private PageMapper pageMapper;
+	@Autowired
+	private PageService pageService;
 	
 	@RequestMapping("/dec/{ymdh}")
 	public String test(@PathVariable("ymdh") Integer ymdh) {
@@ -43,8 +47,8 @@ public class AdminController {
 		String md5 = MD5Util.bytesToMD5(decimal.getDecimal(ymdh).getBytes());
 		System.out.println(md5);
 		if (auth.equals(md5)) {
-			List<Page> list = pageMapper.findLimit(begin, num);
-			list.forEach(page -> FreemarkerUtils.create(page));
+			List<Page> list = pageMapper.findNotStatic(begin, num);
+			list.forEach(page -> pageService.staticPage(page));
 		}
 	}
 }
