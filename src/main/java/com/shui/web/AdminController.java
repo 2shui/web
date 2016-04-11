@@ -45,7 +45,6 @@ public class AdminController {
 				new Date()));
 		Decimal52 decimal = new Decimal52();
 		String md5 = MD5Util.bytesToMD5(decimal.getDecimal(ymdh).getBytes());
-		System.out.println(md5);
 		if (auth.equals(md5)) {
 			List<Page> list = pageMapper.findNotStatic(begin, num);
 			list.forEach(page -> pageService.staticPage(page));
