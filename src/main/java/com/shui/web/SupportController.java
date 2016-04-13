@@ -15,7 +15,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Scope;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.google.gson.JsonObject;
@@ -35,7 +34,6 @@ public class SupportController {
 			.getLogger(SupportController.class);
 
 	@RequestMapping("/getToken")
-	@ResponseBody
 	public Map<String, Object> getToken(HttpServletRequest request) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		if (null != request.getHeader("Referer")

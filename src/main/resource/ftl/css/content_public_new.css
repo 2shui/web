@@ -5,6 +5,7 @@ h1, h2, h3, h4,a{ margin:0; padding:0; text-decoration:none;}
 ol, ul ,li{list-style: none;}
 img {border: 0; vertical-align:middle;}
 a{ color:#3F3F3F;}
+a{ color:#2AA53B;}
 a:hover{ color:#2AA53B;}
 
 .clear{clear:both;}
