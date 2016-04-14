@@ -27,17 +27,6 @@
 		.index_title li div{background:#BDE3CA;overflow:hidden;height:50px;}
 		.index_other{float:right;margin-right:30px;cursor:pointer;}
 	</style>
-	<script type="text/javascript">
-		var titleMap = new Map();
-		var index = 1;
-		
-		titleMap.put('fileName','title');
-		var contentMap = new Map();
-		contentMap.put('fileName','content');
-		
-		var keys = titleMap.keySet();
-		keys = keys.sort(randomsort);
-	</script>
   </head>
   <body>
   	<div class="header">
@@ -53,12 +42,24 @@
 	<div class="con" style="height:80px;">广告</div>
 	<div class="con">
 		<div class="con_left">
+			<div id="hotApp" ng-controller="hotCtrl">
+			---------------------
 			<div style="border-bottom:1px solid #CCC;">
 				<b><span>热门文章</span></b>
-				<span id="hot" class="index_other">换一批 »</span>
+				<span ng-click="other()" class="index_other">换一批 »</span>
 			</div>
 			<div style="height:250px;">
-				<ul id="hotApp" ng-controller="hotCtrl" class="con_left_ul index_title h70">
+				<ul class="con_left_ul index_title h70">
+					<li ng-repeat="article in arr">
+						<span>
+							<b>
+								<a href="http://${site}/{{article.fileName}}.html" target='_blank'
+									title="{{article.title}}">{{article.title}}</a>
+							</b>
+						</span>
+					</li>
+				
+				
 				<#list hotArticle as article>
 				<#if article_index < 6>
 					<li>
@@ -75,6 +76,8 @@
 				</#list>
 				</ul>
 				<div class="clear"></div>
+			</div>
+			-----------------------------------
 			</div>
 			<div style="height:80px;">广告</div>
 			<div style="border-bottom:1px solid #CCC;">
@@ -204,8 +207,12 @@
     	//var app2 = angular.module('app2', []);
     	
     	hotApp.controller('hotCtrl', function($scope) {
-    		//var
-			$scope.name = "John Doe";
+    		$scope.arr = hotArticle.slice(6*hotNum,6*(hotNum+1));
+    		$scope.other = function() {
+    			hotNum += 1;
+    			hotNum %= 5;
+    			$scope.arr = hotArticle.slice(6*hotNum,6*(hotNum+1));
+    		}
 		});
     	
     	angular.bootstrap(document.getElementById("hotApp"), ['hotApp']);
