@@ -49,8 +49,18 @@ public class AdminController {
 	@RequestMapping("/index/{auth}")
 	public void staticIndex(@PathVariable("auth") String auth) {
 		if (pageService.auth(auth)) {
-			List<Page> contents = pageMapper.getRandom(AppConfig.HOT_ARTICLE_NUM);
-			
+			List<Page> list = pageMapper.random(AppConfig.HOT_ARTICLE_NUM
+					+ AppConfig.RANDOM_ARTICLE_NUM
+					+ AppConfig.RANKLIST_AERICLE_NUM);
+			List<Page> hotArticle = list.subList(0, AppConfig.HOT_ARTICLE_NUM);
+			List<Page> randomArticle = list.subList(AppConfig.HOT_ARTICLE_NUM,
+					AppConfig.HOT_ARTICLE_NUM + AppConfig.RANDOM_ARTICLE_NUM);
+			List<Page> ranklistArticle = list.subList(
+					AppConfig.HOT_ARTICLE_NUM + AppConfig.RANDOM_ARTICLE_NUM,
+					AppConfig.HOT_ARTICLE_NUM + AppConfig.RANDOM_ARTICLE_NUM
+							+ AppConfig.RANKLIST_AERICLE_NUM);
+			List<String> hotWord = pageService.hotWord();
+			pageService.staticIndex(hotArticle, randomArticle, ranklistArticle, hotWord);
 		}
 	}
 }

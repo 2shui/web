@@ -28,29 +28,49 @@ public class PageService {
 	
 	@Autowired
 	private PageMapper pageMapper;
+
 	public void staticPage(Page page) {
 		Decimal52 decimal = new Decimal52();
 		Random random = new Random();
 		StringBuilder sb = new StringBuilder();
-		
+
 		sb.append(random.nextInt(999));
 		sb.append(page.getId());
 		sb.append(random.nextInt(999));
 		String name = decimal.getDecimal(new BigDecimal(sb.toString()));
 		pageMapper.updateFileName(page.getId(), name);
-		
-		String path = FreemarkerUtils.class.getResource("/").getFile() + "/ftl/";
+
+		String path = FreemarkerUtils.class.getResource("/").getFile()
+				+ "/ftl/";
 		FreemarkerUtils.initTemplate(path, "page.ftl", null);
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("title", page.getTitle());
 		map.put("body", page.getContent());
-		FreemarkerUtils.analysisTemplate("E:/workspace/html/"+name+".html", map, null);
+		FreemarkerUtils.analysisTemplate(
+				PropUtils.getValue("resource.properties", "pagePath") + name
+						+ ".html", map, null);
+	}
+
+	public void staticIndex(List<Page> hotArticle, List<Page> randomArticle,
+			List<Page> ranklistArticle, List<String> hotWord) {
+		String path = FreemarkerUtils.class.getResource("/").getFile()
+				+ "/ftl/";
+		FreemarkerUtils.initTemplate(path, "index.ftl", null);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("hotArticle", hotArticle);
+		map.put("randomArticle", randomArticle);
+		map.put("ranklistArticle", ranklistArticle);
+		map.put("hotWord", hotWord);
+		map.put("site", AppConfig.WEB_SITE);
+		FreemarkerUtils.analysisTemplate(
+				PropUtils.getValue("resource.properties", "pagePath")
+						+ "index.html", map, null);
 	}
 	
 	/**
 	 * 返回首页热搜词
 	 * */
-	public List<String> randomHot() {
+	public List<String> hotWord() {
 		List<String> list = new ArrayList<String>();
 		String hots = (String) PropUtils.getProps("resource.properties").get(
 				"hotWord");
@@ -67,10 +87,11 @@ public class PageService {
 	 * 认证
 	 * */
 	public boolean auth(String auth) {
-		Integer ymdh = Integer.parseInt(String.format("%1$tY%1$tm%1$td%1$tH",
-				new Date()));
-		Decimal52 decimal = new Decimal52();
-		String md5 = MD5Util.bytesToMD5(decimal.getDecimal(ymdh).getBytes());
-		return auth.equals(md5);
+		return true;
+//		Integer ymdh = Integer.parseInt(String.format("%1$tY%1$tm%1$td%1$tH",
+//				new Date()));
+//		Decimal52 decimal = new Decimal52();
+//		String md5 = MD5Util.bytesToMD5(decimal.getDecimal(ymdh).getBytes());
+//		return auth.equals(md5);
 	}
 }

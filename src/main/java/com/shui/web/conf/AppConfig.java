@@ -16,4 +16,8 @@ public class AppConfig {
 	 * 首页随机看文章数量
 	 * */
 	public static final int RANDOM_ARTICLE_NUM = 12;
+	/**
+	 * 首页热点排行文章数量
+	 * */
+	public static final int RANKLIST_AERICLE_NUM = 8;
 }

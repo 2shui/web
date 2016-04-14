@@ -13,7 +13,7 @@ public class PropUtils {
 
 	public static Properties getProps(String propFileName) {
 		Properties props = new Properties();
-		String path = "/" + propFileName;
+		String path = propFileName;
 		InputStream ins = null;
 		try {
 			ins = Thread.currentThread().getContextClassLoader()
@@ -25,5 +25,10 @@ public class PropUtils {
 			IOUtils.closeQuietly(ins);
 		}
 		return props;
+	}
+	
+	public static Object getValue(String propFileName, String propKey) {
+		Properties props = PropUtils.getProps(propFileName);
+		return props.get(propKey);
 	}
 }
