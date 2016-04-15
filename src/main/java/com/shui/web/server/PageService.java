@@ -62,6 +62,7 @@ public class PageService {
 		map.put("ranklistArticle", ranklistArticle);
 		map.put("hotWord", hotWord);
 		map.put("site", AppConfig.WEB_SITE);
+		map.put("sld", AppConfig.DYNAMIC_SITE);
 		FreemarkerUtils.analysisTemplate(
 				PropUtils.getValue("resource.properties", "pagePath")
 						+ "index.html", map, null);

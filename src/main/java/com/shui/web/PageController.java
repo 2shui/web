@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.shui.web.conf.AppConfig;
 import com.shui.web.model.Page;
 import com.shui.web.repo.PageMapper;
 import com.shui.web.util.SafeMapBuilder;
@@ -37,15 +39,15 @@ public class PageController {
 	/**
 	 * 获取随机页面 <br/>
 	 */
-	@RequestMapping("/uncertain")
+	@RequestMapping(value="/uncertain")
 	@ResponseBody
-	public List<Map<String, Object>> uncertain() {
-		List<Page> list = pageMapper.getRandom(20);
+	public List<Map<String, Object>> uncertain(HttpServletResponse response) {
+		List<Page> list = pageMapper.getRandom(AppConfig.RANDOM_ARTICLE_NUM);
 		return SafeMapBuilder.buildMap(list);
 	}
 
 	@RequestMapping("/hits/{name}")
-	@ResponseBody
+	@ResponseBody()
 	public void readOne(@PathVariable("name") String name, HttpServletRequest request) {
 		if (null != request.getHeader("Referer") && request.getHeader("Referer").contains("www.2shui.com.cn")) {
 			pageMapper.readOne(name);

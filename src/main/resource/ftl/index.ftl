@@ -10,7 +10,7 @@
   	<link href="../css/content.css" rel="stylesheet" media="screen">
   	<link href="../css/content_public_new.css" rel="stylesheet" media="screen">
   	<link rel="canonical" href="/index.html"/>
-  	<script type="text/javascript" src="http://${site}/js/angularjs-1.4.6.min.js"></script>
+  	<script type="text/javascript" src="http://${site}/js/angular.min.js"></script>
   	<script type="text/javascript" src="http://${site}/js/common.js"></script>
   	
   	<style>
@@ -43,56 +43,40 @@
 	<div class="con">
 		<div class="con_left">
 			<div id="hotApp" ng-controller="hotCtrl">
-			---------------------
-			<div style="border-bottom:1px solid #CCC;">
-				<b><span>热门文章</span></b>
-				<span ng-click="other()" class="index_other">换一批 »</span>
-			</div>
-			<div style="height:250px;">
-				<ul class="con_left_ul index_title h70">
-					<li ng-repeat="article in arr">
-						<span>
-							<b>
-								<a href="http://${site}/{{article.fileName}}.html" target='_blank'
-									title="{{article.title}}">{{article.title}}</a>
-							</b>
-						</span>
-					</li>
-				
-				
-				<#list hotArticle as article>
-				<#if article_index < 6>
-					<li>
-						<span>
-							<b>
-								<a href="http://${site}/${article.fileName}.html" target='_blank'
-									title="${article.title}">${article.title}</a>
-							</b>
-						</span>
-						<br/>
-						<div>${article.content}</div>
-					</li>
-				</#if>
-				</#list>
-				</ul>
-				<div class="clear"></div>
-			</div>
-			-----------------------------------
+				<div style="border-bottom:1px solid #CCC;">
+					<b><span>热门文章</span></b>
+					<span ng-click="other()" class="index_other">换一批 »</span>
+				</div>
+				<div style="height:250px;">
+					<ul class="con_left_ul index_title h70">
+						<li ng-repeat="article in arr">
+							<span>
+								<b>
+									<a href="http://${site}/{{article.fileName}}.html" target='_blank' 
+										title="{{article.title}}">{{article.title}}</a>
+								</b>
+							</span>
+							<br/>
+							<div>{{article.content}}</div>
+						</li>
+					</ul>
+					<div class="clear"></div>
+				</div>
 			</div>
 			<div style="height:80px;">广告</div>
-			<div style="border-bottom:1px solid #CCC;">
-				<b><span>随机看</span></b>
-				<span id="random" class="index_other">随一批 »</span>
-			</div>
-			<div>
-				<ul class="con_left_ul index_title">
-				<#list randomArticle as article>
-					<li>
-						<span><a href="http://${site}/${article.fileName}.html" target='_blank'
-							title="${article.title}">${article.title}</a>
-					</li>
-				</#list>
-				</ul>
+			<div id="randomApp" ng-controller="randomCtrl">
+				<div style="border-bottom:1px solid #CCC;">
+					<b><span>随机看</span></b>
+					<span ng-click="other()" class="index_other">随一批 »</span>
+				</div>
+				<div>
+					<ul class="con_left_ul index_title">
+						<li ng-repeat="article in arr">
+							<span><a href="http://${site}/{{article.fileName}}.html" target='_blank'
+								title="{{article.title}}">{{article.title}}</a>
+						</li>
+					</ul>
+				</div>
 			</div>
 			<div>广告</div>
 			<div class="clear"></div>
@@ -202,9 +186,16 @@
     		article.fileName = '${article.fileName}';
     		hotArticle[${article_index}] = article;
     	</#list>
-    	console.log(hotArticle);
+    	var randomArr = new Array();
+    	<#list randomArticle as article>
+    		var article = {};
+    		article.title = '${article.title}';
+    		article.fileName = '${article.fileName}';
+    		randomArr[${article_index}] = article;
+    	</#list>
+    	
     	var hotApp = angular.module('hotApp',[]);
-    	//var app2 = angular.module('app2', []);
+    	var randomApp = angular.module('randomApp', []);
     	
     	hotApp.controller('hotCtrl', function($scope) {
     		$scope.arr = hotArticle.slice(6*hotNum,6*(hotNum+1));
@@ -214,9 +205,49 @@
     			$scope.arr = hotArticle.slice(6*hotNum,6*(hotNum+1));
     		}
 		});
+		
+		randomApp.controller('randomCtrl', function($scope, $http) {
+    		$scope.arr = randomArr;
+    		$scope.other = function() {
+    			$http.jsonp('http://${sld}/page/uncertain?callback=JSON_CALLBACK')
+    				.success(function(data){
+    					randomArr = [];
+    					for(var i=0;i<data.length;i++){
+    						var article = {};
+    						article.fileName = data[i].fileName;
+    						article.title = data[i].title;
+    						randomArr[i] = article;
+    					}
+    					$scope.arr = randomArr;
+    				}).error(function(data,header,config,status){
+    					console.log(header);
+    				});
+    		
+    		/*
+    			$http({
+    				method:"POST",
+    				data:new Date(),
+    				url:'http://${sld}/page/uncertain'
+    			});
+    		*/
+    		/*
+    			$http.post('http://${sld}/page/uncertain',{},
+    				{'Content-Type':'application/json'}
+    			).success(function(data){
+    				console.log(data);
+    			}).error(function(data,header,config,status){
+    				console.log(status);
+    			});
+    		*/
+    						
+    			
+    		}
+		});
     	
     	angular.bootstrap(document.getElementById("hotApp"), ['hotApp']);
-    	//angular.bootstrap(document.getElementById("app2"), ['app2']);
+    	angular.bootstrap(document.getElementById("randomApp"), ['randomApp']);
+    	
+    	function uncertain_back(data){console.log(data)}
     </script>
   </body>
 </html>
