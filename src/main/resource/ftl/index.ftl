@@ -7,26 +7,12 @@
   	<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE8; charset=UTF-8" />
   	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   	<title>2水(2SHUI.COM.CN)--水利万物而不争</title>
-  	<link href="../css/content.css" rel="stylesheet" media="screen">
-  	<link href="../css/content_public_new.css" rel="stylesheet" media="screen">
+  	<link href="http://${site}/css/content.css" rel="stylesheet" media="screen">
+  	<link href="http://${site}/css/content_public_new.css" rel="stylesheet" media="screen">
   	<link rel="canonical" href="/index.html"/>
   	<script type="text/javascript" src="http://${site}/js/angular.min.js"></script>
   	<script type="text/javascript" src="http://${site}/js/common.js"></script>
   	
-  	<style>
-		.h70{height:70px;}
-		.con_left_ul li{width:300px;float:left;margin-right:10px;}
-		.index_title li{background:#EEE;margin-top:5px;}
-		.index_title li span{
-			white-space:nowrap;display:inline-block;
-			overflow:hidden;text-overflow:ellipsis;width:280px;}
-		.index_title li div{
-			text-overflow: -o-ellipsis-lastline;overflow: hidden;
-			text-overflow: ellipsis;display: -webkit-box;-webkit-line-clamp: 2;
-			-webkit-box-orient: vertical;}
-		.index_title li div{background:#BDE3CA;overflow:hidden;height:50px;}
-		.index_other{float:right;margin-right:30px;cursor:pointer;}
-	</style>
   </head>
   <body>
   	<div class="header">
@@ -182,7 +168,7 @@
     	<#list hotArticle as article>
     		var article = {};
     		article.title = '${article.title}';
-    		article.content = '${article.content?js_string}';
+    		article.content = '${article.content?substring(0,50)?js_string}';
     		article.fileName = '${article.fileName}';
     		hotArticle[${article_index}] = article;
     	</#list>
@@ -222,32 +208,11 @@
     				}).error(function(data,header,config,status){
     					console.log(header);
     				});
-    		
-    		/*
-    			$http({
-    				method:"POST",
-    				data:new Date(),
-    				url:'http://${sld}/page/uncertain'
-    			});
-    		*/
-    		/*
-    			$http.post('http://${sld}/page/uncertain',{},
-    				{'Content-Type':'application/json'}
-    			).success(function(data){
-    				console.log(data);
-    			}).error(function(data,header,config,status){
-    				console.log(status);
-    			});
-    		*/
-    						
-    			
     		}
 		});
     	
     	angular.bootstrap(document.getElementById("hotApp"), ['hotApp']);
     	angular.bootstrap(document.getElementById("randomApp"), ['randomApp']);
-    	
-    	function uncertain_back(data){console.log(data)}
     </script>
   </body>
 </html>

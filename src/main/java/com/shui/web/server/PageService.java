@@ -4,7 +4,6 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,7 +18,6 @@ import com.shui.web.model.Page;
 import com.shui.web.repo.PageMapper;
 import com.shui.web.util.Decimal52;
 import com.shui.web.util.FreemarkerUtils;
-import com.shui.web.util.MD5Util;
 import com.shui.web.util.PropUtils;
 
 @MapperScan("com.shui.web.repo")
@@ -39,13 +37,18 @@ public class PageService {
 		sb.append(random.nextInt(999));
 		String name = decimal.getDecimal(new BigDecimal(sb.toString()));
 		pageMapper.updateFileName(page.getId(), name);
+		
+		List<Page> list = pageMapper.getRandom(AppConfig.RANDOM_ARTICLE_NUM);
 
 		String path = FreemarkerUtils.class.getResource("/").getFile()
 				+ "/ftl/";
 		FreemarkerUtils.initTemplate(path, "page.ftl", null);
-		Map<String, String> map = new HashMap<String, String>();
+		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("title", page.getTitle());
 		map.put("body", page.getContent());
+		map.put("site", AppConfig.WEB_SITE);
+		map.put("sld", AppConfig.DYNAMIC_SITE);
+		map.put("recommend", list);
 		FreemarkerUtils.analysisTemplate(
 				PropUtils.getValue("resource.properties", "pagePath") + name
 						+ ".html", map, null);
