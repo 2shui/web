@@ -12,6 +12,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Scope;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -60,5 +61,17 @@ public class PageController {
 		if (null != request.getHeader("Referer") && request.getHeader("Referer").contains("www.2shui.com.cn")) {
 			pageMapper.enjoyOne(name);
 		}
+	}
+	
+	@RequestMapping("/map")
+	@ResponseBody
+	public List<Map<String, Object>> map(
+			@RequestParam(value = "pNo", required = false) Integer pNo) {
+		if (null == pNo || pNo < 1) {
+			pNo = 1;
+		}
+		List<Page> list = pageMapper.limit((pNo - 1)
+				* AppConfig.LIST_AERICLE_NUM, AppConfig.LIST_AERICLE_NUM);
+		return SafeMapBuilder.buildMap(list);
 	}
 }

@@ -1,0 +1,78 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+  	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  	<meta name="mobile-agent" content="format=html5;url=http://www.2shui.com.cn/index.html">
+  	<link rel="alternate" media="only screen and(max-width: 640px)" href="http://www.2shui.com.cn/index.html">
+  	<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE8; charset=UTF-8" />
+  	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  	<title>2水(2SHUI.COM.CN)--水利万物而不争</title>
+  	<link href="http://www.2shui.com.cn/css/content.css" rel="stylesheet" media="screen">
+  	<link href="http://www.2shui.com.cn/css/content_public_new.css" rel="stylesheet" media="screen">
+  	<link rel="canonical" href="/index.html"/>
+  	<script type="text/javascript" src="http://www.2shui.com.cn/js/angular.min.js"></script>
+  	<script type="text/javascript" src="http://www.2shui.com.cn/js/common.js"></script>
+  	
+  </head>
+  <body>
+  	<div class="header">
+	    <div class="con">
+	        <div class="nav">
+	            <div class="Nav_list1"> <a rel="nofollow" href="/" >2水(2shui.com.cn)网首页</a> </div>
+	            <div class="clear"></div>
+	        </div>
+	        <span class="a1">
+	        	<form novalidate name="search" ng-submit="submit()" ng-controller="searchCtrl" id="searchApp">
+					<input type="text" ng-model="text" placeholder="请输入搜索关键词" required />
+					<button type="submit" class="BTN">搜索</button>
+				</form>
+	        	<a target="_blank" href="/map/">网站地图</a>
+	        </span>
+	        <div class="clear"></div>
+	    </div>
+	</div>
+	<div class="con" style="height:80px;">广告</div>
+	<div class="con">
+		<div class="con_left" ng-app="myApp" ng-controller="myCtrl">
+			<ul>
+				<li ng-repeat="article in arr">
+					<a target="_blank" href="http://www.2shui.com.cn/{{article.fileName}}.html">{{article.title}}</a>
+				</li>
+			</ul>
+			<div class="clear"></div>
+		</div>
+		
+		<!--右侧内容-->
+		<div class=" con_right">
+			<div>广告</div>
+		</div>
+		<div class="clear"></div>
+	</div>
+	<div class="clear"></div>
+	<div class="footer">
+        <p><a rel="nofollow" href="http://www.2shui.com.cn/">2水网</a>|
+        	<a rel="nofollow" href="#">加入我们</a>|
+        	<a rel="nofollow" href="#">联系我们</a>|
+        	<a rel="nofollow" href="#">反馈</a></p>
+        <p>© Copyright 2015 2水网 Inc.All Rights Reserved. 豫ICP备15018592号-1</p>
+    </div>
+    <script type="text/javascript">
+	var app = angular.module('myApp', []);
+	app.controller('myCtrl', function($scope, $http) {
+		$http.jsonp('http://boot.2shui.com.cn/page/map?callback=JSON_CALLBACK')
+			.success(function(data){
+				randomArr = [];
+				for(var i=0;i<data.length;i++){
+					var article = {};
+					article.fileName = data[i].fileName;
+					article.title = data[i].title;
+					randomArr[i] = article;
+				}
+				$scope.arr = randomArr;
+			}).error(function(data,header,config,status){
+				console.log(header);
+			});
+	});
+    </script>
+  </body>
+</html>

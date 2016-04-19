@@ -39,10 +39,19 @@ public class AdminController {
 	 * */
 	@RequestMapping("/static/{auth}/{begin}/{num}")
 	public void staticPage(@PathVariable("auth") String auth,
-			@PathVariable("num") int begin, @PathVariable("num") int num) {
+			@PathVariable("begin") int begin, @PathVariable("num") int num) {
 		if (pageService.auth(auth)) {
 			List<Page> list = pageMapper.findNotStatic(begin, num);
 			list.forEach(page -> pageService.staticPage(page));
+		}
+	}
+	
+	@RequestMapping("/restatic/{auth}/{begin}/{num}")
+	public void restaticPage(@PathVariable("auth") String auth,
+			@PathVariable("begin") int begin, @PathVariable("num") int num) {
+		if (pageService.auth(auth)) {
+			List<Page> list = pageMapper.findStaticLimit(begin, num);
+			list.forEach(page -> pageService.restatic(page));
 		}
 	}
 	

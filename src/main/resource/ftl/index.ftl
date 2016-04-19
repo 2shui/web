@@ -21,7 +21,13 @@
 	            <div class="Nav_list1"> <a rel="nofollow" href="/" >2水(2shui.com.cn)网首页</a> </div>
 	            <div class="clear"></div>
 	        </div>
-	        <span class="a1"><a target="_blank" href="/map/">网站地图</a></span>
+	        <span class="a1">
+	        	<form novalidate name="search" ng-submit="submit()" ng-controller="searchCtrl" id="searchApp">
+					<input type="text" ng-model="text" placeholder="请输入搜索关键词" required />
+					<button type="submit" class="BTN">搜索</button>
+				</form>
+	        	<a target="_blank" href="/map">网站地图</a>
+	        </span>
 	        <div class="clear"></div>
 	    </div>
 	</div>
@@ -179,10 +185,9 @@
     		article.fileName = '${article.fileName}';
     		randomArr[${article_index}] = article;
     	</#list>
-    	
     	var hotApp = angular.module('hotApp',[]);
     	var randomApp = angular.module('randomApp', []);
-    	
+    	var searchApp = angular.module('searchApp', []);
     	hotApp.controller('hotCtrl', function($scope) {
     		$scope.arr = hotArticle.slice(6*hotNum,6*(hotNum+1));
     		$scope.other = function() {
@@ -191,7 +196,6 @@
     			$scope.arr = hotArticle.slice(6*hotNum,6*(hotNum+1));
     		}
 		});
-		
 		randomApp.controller('randomCtrl', function($scope, $http) {
     		$scope.arr = randomArr;
     		$scope.other = function() {
@@ -210,9 +214,16 @@
     				});
     		}
 		});
-    	
+		searchApp.controller('searchCtrl', function($scope) {
+			$scope.submit = function() {
+				if($scope.text) {
+					window.open('https://www.baidu.com/s?wd='+$scope.text+"site:${site}");
+				}
+			}
+		});
     	angular.bootstrap(document.getElementById("hotApp"), ['hotApp']);
     	angular.bootstrap(document.getElementById("randomApp"), ['randomApp']);
+    	angular.bootstrap(document.getElementById("searchApp"), ['searchApp']);
     </script>
   </body>
 </html>

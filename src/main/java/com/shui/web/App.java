@@ -18,4 +18,10 @@ public class App
     {
     	SpringApplication.run(App.class, args);
     }
+//    public static void main(String[] args) {
+//    	Calendar calendar = Calendar.getInstance();
+//    	 calendar.setTime(new Date());
+//    	 int w = calendar.get(Calendar.DAY_OF_WEEK);
+//    	 System.out.println(w);
+//	}
 }

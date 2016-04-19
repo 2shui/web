@@ -21,4 +21,14 @@ public class AppConfig {
 	 * 首页热点排行文章数量
 	 * */
 	public static final int RANKLIST_AERICLE_NUM = 8;
+	
+	/**
+	 * 列表页文章数量
+	 * */
+	public static final int LIST_AERICLE_NUM = 20;
+	
+	/**
+	 * 文章单页字数
+	 * */
+	public static final int ARTICLE_WORLD_NUM = 600;
 }

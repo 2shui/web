@@ -10,20 +10,40 @@ import com.shui.web.model.Page;
 
 public interface PageMapper {
 	
+	/**
+	 * */
 	@Select("select * from web where id = #{id}")
 	Page getById(@Param("id") Long id);
 	
+	/**
+	 * 获取静态化的随机页面
+	 * */
 	@Select("SELECT id,title,fileName FROM web where fileName IS NOT NULL"
 			+ " order by rand() limit #{num}")
 	List<Page> getRandom(@Param("num") int num);
 	
+	/**
+	 * 首页随机静态文章 TODO
+	 * */
 	@Select("select id,uri,title,content,fileName from web where fileName IS NOT NULL "
 			+ "order by rand() limit #{num}")
 	List<Page> random(@Param("num") int num);
 	
-	@Select("select * from web limit #{begin},#{num}")
-	List<Page> findLimit(@Param("begin") int begin, @Param("num") int num);
+	/**
+	 * 重新初始化页面获取列表
+	 * */
+	@Select("select * from web where fileName IS NOT NULL limit #{begin},#{num}")
+	List<Page> findStaticLimit(@Param("begin") int begin, @Param("num") int num);
 	
+	/**
+	 * 地图获取静态页面分页
+	 * */
+	@Select("select title,fileName from web where fileName IS NOT NULL limit #{begin},#{num}")
+	List<Page> limit(@Param("begin") int begin, @Param("num") int num);
+	
+	/**
+	 * 静态化页面获取未静态页面列表
+	 * */
 	@Select("select * from web where fileName IS NULL order by fileName limit #{begin},#{num}")
 	List<Page> findNotStatic(@Param("begin") int begin, @Param("num") int num);
 	

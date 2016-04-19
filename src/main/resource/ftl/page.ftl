@@ -6,7 +6,7 @@
   	<link rel="alternate" media="only screen and(max-width: 640px)" href="http://www.2shui.com.cn/index.html">
   	<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE8; charset=UTF-8" />
   	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-  	<title>${title}2水(2SHUI.COM.CN)--水利万物而不争</title>
+  	<title>${title}--2水(2SHUI.COM.CN)--水利万物而不争</title>
   	<link href="http://www.2shui.com.cn/css/content.css" rel="stylesheet" media="screen">
   	<link href="http://www.2shui.com.cn/css/content_public_new.css" rel="stylesheet" media="screen">
   	<link rel="canonical" href="/index.html"/>
@@ -21,16 +21,52 @@
 	            <div class="Nav_list1"> <a rel="nofollow" href="/" >2水(2shui.com.cn)网首页</a> </div>
 	            <div class="clear"></div>
 	        </div>
-	        <span class="a1"><a target="_blank" href="/map/">网站地图</a></span>
+	        <span class="a1">
+	        	<form novalidate name="search" ng-submit="submit()" ng-controller="searchCtrl" id="searchApp">
+					<input type="text" ng-model="text" placeholder="请输入搜索关键词" required />
+					<button type="submit" class="BTN">搜索</button>
+				</form>
+	        	<a target="_blank" href="/map">网站地图</a>
+	        </span>
 	        <div class="clear"></div>
 	    </div>
 	</div>
 	<div class="con" style="height:80px;">广告</div>
 	<div class="con">
 		<div class="con_left">
-			<div style="height:500px;">
+			<div style="height:500px;font-size:18px;line-height:30px;" id="app" ng-controller="ctrl">
 				<div style="float:right; width:200px;height:200px;">广告</div>
-				${body}
+				<iframe style="width:0; height:0; margin-top:-10px;" name="submitFrame" src="about:blank"></iframe>
+				<form name="dd" method="post" target="submitFrame" action="http://tsn.baidu.com/text2audio">
+					<input type="hidden" name="tex" value="FDAFEAFD"/>
+					<input type="hidden" name="lan" value="zh"/>
+					<input type="hidden" name="cuid" value="1460975073938"/>
+					<input type="hidden" name="ctp" value="1"/>
+					<input type="hidden" name="tok" value="24.57bdd55ce62204e1cc63be3192bc6275.2592000.1462956899.282335-7986971" />
+					<button type="submit" class="BTN">在线听</button>
+				</form>
+				<div ng-model="page.body">${body}</div>
+				<ul class="pagination">
+				<#if pageNo == 1>
+					<li class="previous-off">&laquo;上一页</li>
+				<#else>
+					<li><a href="http://${site}/${pageName}_${pageNo-1}.html">&laquo;上一页</a></li>
+				</#if>
+				<#list 1..countNum+1 as pn>
+				<#if pn==pageNo><li class="active">${pn}</li>
+				<#else>
+					<#if pn==1><li><a href="http://${site}/${pageName}.html">${pn}</a></li>
+					<#else><li><a href="http://${site}/${pageName}_${pn}.html">${pn}</a></li>
+					</#if>
+				</#if>
+				</#list>
+				<#if pageNo == countNum>
+					<li class="previous-off">下一页 &raquo;</li>
+				<#else>
+					<li class="next">
+						<a href="http://${site}/${pageName}_${pageNo+1}.html">Next &raquo;</a></li>
+				</#if>
+				</ul>
 			</div>
 			<div class="clear"></div>
 		</div>
@@ -110,6 +146,8 @@
     	</#if>
     	</#list>
     	var recommendApp = angular.module('recommendApp',[]);
+    	var searchApp = angular.module('searchApp', []);
+    	//var app = angular.module('app', []);
     	recommendApp.controller('recommendCtrl', function($scope, $http) {
     		$scope.arr = recommendArr;
     		$scope.other = function() {
@@ -130,7 +168,36 @@
     				});
     		}
 		});
+		/*
+		app.controller('ctrl', function($scope, $http) {
+			$scope.tk = '24.57bdd55ce62204e1cc63be3192bc6275.2592000.1462956899.282335-7986971';
+			$scope.timestamp = ''+new Date().getTime();
+			$scope.url = 'http://tsn.baidu.com/text2audio?tex=abv&&lan=zh&cuid='
+				+$scope.timestamp+'&ctp=1&tok='+$scope.tk;
+			$scope.uri = 'http://tsn.baidu.com/text2audio';
+			$scope.body = 'tex=abv&&lan=zh&cuid='+$scope.timestamp+'&ctp=1&tok='+$scope.tk;
+			$scope.listen = function() {
+				
+				console.log(12);
+			}
+		});
+		*/
+		searchApp.controller('searchCtrl', function($scope) {
+			$scope.submit = function() {
+				if($scope.text) {
+					window.open('https://www.baidu.com/s?wd='+$scope.text+"site:${site}");
+				}
+			}
+		});
 		angular.bootstrap(document.getElementById("recommendApp"), ['recommendApp']);
+		angular.bootstrap(document.getElementById("searchApp"), ['searchApp']);
+		//angular.bootstrap(document.getElementById("app"), ['app']);
+		/*
+		setInterval("myInterval()",1000);
+		function myInterval(){
+			window.frames["submitFrame"].document.getElementsByTagName("video");
+		}*/
+		console.log(encodeURI(encodeURI('zh')));
     </script>
   </body>
 </html>
