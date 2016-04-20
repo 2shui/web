@@ -34,7 +34,7 @@
 	<div class="con" style="height:80px;">广告</div>
 	<div class="con">
 		<div class="con_left">
-			<div style="height:500px;font-size:18px;line-height:30px;" id="app" ng-controller="ctrl">
+			<div id="app" ng-controller="ctrl">
 				<div style="float:right; width:200px;height:200px;">广告</div>
 				<iframe style="width:0; height:0; margin-top:-10px;" name="submitFrame" src="about:blank"></iframe>
 				<form name="dd" method="post" target="submitFrame" action="http://tsn.baidu.com/text2audio">
@@ -43,9 +43,9 @@
 					<input type="hidden" name="cuid" value="1460975073938"/>
 					<input type="hidden" name="ctp" value="1"/>
 					<input type="hidden" name="tok" value="24.57bdd55ce62204e1cc63be3192bc6275.2592000.1462956899.282335-7986971" />
-					<button type="submit" class="BTN">在线听</button>
+					<button type="submit" class="BTN"><!--在线听--></button>
 				</form>
-				<div ng-model="page.body">${body}</div>
+				<div ng-model="page.body" style="font-size:18px;line-height:180%;">${body}</div>
 				<ul class="pagination">
 				<#if pageNo == 1>
 					<li class="previous-off">&laquo;上一页</li>
