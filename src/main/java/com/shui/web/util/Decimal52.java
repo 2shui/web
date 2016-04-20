@@ -101,15 +101,4 @@ public class Decimal52 {
 
 		return sb.toString();
 	}
-
-	public static void main(String[] args) {
-		Decimal52 de = new Decimal52();
-		System.out.println(de.getDecimal(BigDecimal.valueOf(382938278328l)));// 4VX3KAM0
-		System.out.println(de.getDecimalism("ZZZZZZZZ"));// 2821109907455.0
-		System.out.println(de.getDecimal(BigDecimal
-				.valueOf(382938278328329482l)));// 2WQKAGGVC5CA
-		System.out.println(de.getDecimal(BigDecimal
-				.valueOf(382938278328329483l)));// 2WQKAGGVC5CB
-		System.out.println(de.getDecimalism("FAFAFAFAFAFAFAFAFAFA"));// 5677314282906604921686077693550.0
-	}
 }
