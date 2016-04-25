@@ -7,6 +7,8 @@
   	<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE8; charset=UTF-8" />
   	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   	<title>${title}--2水(2SHUI.COM.CN)--水利万物而不争</title>
+  	<meta name="keywords" content="2水,2水网,养生,菜谱,美食,食疗,保健,健康养生,各地菜谱,创意美食,心理养生,女人养生,房事养生,经络养生,保健知识,中医养生,运动养生" />
+	<meta name="description" content="2水网，致力于美食及养生健康知识的普及，推进养生理念的更新。2水网，2SHUI.COM.CN" />
   	<link href="http://www.2shui.com.cn/css/content.css" rel="stylesheet" media="screen">
   	<link href="http://www.2shui.com.cn/css/content_public_new.css" rel="stylesheet" media="screen">
   	<link rel="canonical" href="/index.html"/>
@@ -26,7 +28,7 @@
 					<input type="text" ng-model="text" placeholder="请输入搜索关键词" required />
 					<button type="submit" class="BTN">搜索</button>
 				</form>
-	        	<a target="_blank" href="/map">网站地图</a>
+	        	<a target="_blank" href="/map.html">网站地图</a>
 	        </span>
 	        <div class="clear"></div>
 	    </div>
@@ -52,7 +54,7 @@
 				<#else>
 					<li><a href="http://${site}/${pageName}_${pageNo-1}.html">&laquo;上一页</a></li>
 				</#if>
-				<#list 1..countNum+1 as pn>
+				<#list 1..countNum as pn>
 				<#if pn==pageNo><li class="active">${pn}</li>
 				<#else>
 					<#if pn==1><li><a href="http://${site}/${pageName}.html">${pn}</a></li>
@@ -199,5 +201,15 @@
 		}*/
 		console.log(encodeURI(encodeURI('zh')));
     </script>
+    <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?a9e3ff10ba849d11ea3a955e61e36607";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+    
   </body>
 </html>

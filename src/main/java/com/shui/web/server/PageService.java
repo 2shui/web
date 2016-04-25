@@ -1,5 +1,8 @@
 package com.shui.web.server;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -29,7 +32,8 @@ public class PageService {
 	private static Logger log = LoggerFactory.getLogger(PageService.class);
 	@Autowired
 	private PageMapper pageMapper;
-
+	private String path = AppConfig.RESOURCE_PATH + "ftl/";
+	
 	public void staticPage(Page page) {
 		Decimal52 decimal = new Decimal52();
 		Random random = new Random();
@@ -55,8 +59,6 @@ public class PageService {
 	
 	private void staticPage(Page page, int pageNo) {
 		List<Page> list = pageMapper.getRandom(AppConfig.RANDOM_ARTICLE_NUM);
-		String path = FreemarkerUtils.class.getResource("/").getFile()
-				+ "/ftl/";
 		FreemarkerUtils.initTemplate(path, "page.ftl", null);
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("title", page.getTitle());
@@ -82,8 +84,6 @@ public class PageService {
 
 	public void staticIndex(List<Page> hotArticle, List<Page> randomArticle,
 			List<Page> ranklistArticle, List<String> hotWord) {
-		String path = FreemarkerUtils.class.getResource("/").getFile()
-				+ "/ftl/";
 		FreemarkerUtils.initTemplate(path, "index.ftl", null);
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("hotArticle", hotArticle);
@@ -149,5 +149,31 @@ public class PageService {
 				: (num / AppConfig.ARTICLE_WORLD_NUM) + 1);
 		map.put("body", sb.toString());
 		return map;
+	}
+	
+	public void siteMap(List<Page> list) {
+		FileOutputStream os = null;
+		try {
+			String filePath = AppConfig.ROOT_PATH + "site.txt";
+			File file = new File(filePath);
+			if(!file.exists()) {
+				file.createNewFile();
+			}
+			os = new FileOutputStream(file);
+			String subStr = "http://" + AppConfig.WEB_SITE;
+			for (Page page : list) {
+				os.write((subStr + page.getFileName() + ".html\n").getBytes());
+			}
+		} catch (IOException e) {
+			log.error(e.getMessage());
+		} finally {
+			try {
+				if (null != os) {
+					os.close();
+				}
+			} catch (IOException e) {
+				log.error(e.getMessage());
+			}
+		}
 	}
 }

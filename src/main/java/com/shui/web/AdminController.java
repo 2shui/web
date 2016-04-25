@@ -55,6 +55,15 @@ public class AdminController {
 		}
 	}
 	
+	@RequestMapping("/mapSite/{auth}/{begin}/{num}")
+	public void mapSite(@PathVariable("auth") String auth,
+			@PathVariable("begin") int begin, @PathVariable("num") int num) {
+		if (pageService.auth(auth)) {
+			List<Page> list = pageMapper.limit(begin, num);
+			pageService.siteMap(list);
+		}
+	}
+	
 	@RequestMapping("/index/{auth}")
 	public void staticIndex(@PathVariable("auth") String auth) {
 		if (pageService.auth(auth)) {
