@@ -156,11 +156,11 @@ public class PageService {
 		try {
 			String filePath = AppConfig.ROOT_PATH + "site.txt";
 			File file = new File(filePath);
-			if(!file.exists()) {
+			if (!file.exists()) {
 				file.createNewFile();
 			}
 			os = new FileOutputStream(file);
-			String subStr = "http://" + AppConfig.WEB_SITE;
+			String subStr = "http://" + AppConfig.WEB_SITE + "/";
 			for (Page page : list) {
 				os.write((subStr + page.getFileName() + ".html\n").getBytes());
 			}
