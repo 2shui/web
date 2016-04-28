@@ -14,7 +14,12 @@
   	<link rel="canonical" href="/index.html"/>
   	<script type="text/javascript" src="http://www.2shui.com.cn/js/angular.min.js"></script>
   	<script type="text/javascript" src="http://www.2shui.com.cn/js/common.js"></script>
-  	
+  	<script type="text/javascript">var adgs = new Array();
+    	<#list adgs as add>
+    	adgs[${add_index}] = ${add};
+    	</#list>adgs.sort(randomsort);var adcs = new Array();
+    	<#list adcs as add>adcs[${add_index}] = ${add};</#list>adcs.sort(randomsort);
+    </script>
   </head>
   <body>
   	<div class="header">
@@ -33,11 +38,17 @@
 	        <div class="clear"></div>
 	    </div>
 	</div>
-	<div class="con" style="height:80px;">广告</div>
+	<div class="con" style="height:90px;">
+	<script type="text/javascript">var jd_union_unid="1000034163",jd_ad_ids="505:6",jd_union_pid="CM/SpNzFKhDznu3cAxoAIOPa9cMBKgA=";var jd_width=960;var jd_height=90;var jd_union_euid="";var p="BxIGXB1ZFQsVNwpfBkgyTUMIRmtKRk9aZV8ETVxNNwpfBkgyZUU1XTsWXkhnN08hFXVLDzROK10DRAtZK14VAxQPVhtdHTISBlQaWhcHEgBXK2tKRk9aZVA1FDJNQwhGaxUHFQdcGF4RChUFVB5rFA%3D%3D";</script>
+	<script type="text/javascript" charset="utf-8" src="http://u.x.jd.com/static/js/auto.js"></script>
+	</div>
 	<div class="con">
 		<div class="con_left">
 			<div id="app" ng-controller="ctrl">
-				<div style="float:right; width:200px;height:200px;">广告</div>
+				<div style="float:right; width:250px;height:250px;">
+					<script type="text/javascript">var jd_union_pid=""+adgs[0];var jd_union_euid="";</script>
+					<script type="text/javascript" src="http://ads.union.jd.com/static/js/union.js"></script>
+				</div>
 				<iframe style="width:0; height:0; margin-top:-10px;" name="submitFrame" src="about:blank"></iframe>
 				<form name="dd" method="post" target="submitFrame" action="http://tsn.baidu.com/text2audio">
 					<input type="hidden" name="tex" value="FDAFEAFD"/>
@@ -70,12 +81,17 @@
 				</#if>
 				</ul>
 			</div>
+			<script type="text/javascript">var jd_union_unid="1000034163",jd_ad_ids="1470:6",jd_union_pid="CJ+55N3FKhDznu3cAxoAIO3a9cMBKgA=";var jd_width=629;var jd_height=144;var jd_union_euid="";var p="BxIGUxJfFgQXNwpfBkgyTUMIRmtKRk9aZV8ETVxNNwpfBkgyc0Yech8WZHFnI2VYEAd7Rw8YC3VXcgtZK14VAxQPVhtdHTISBlQaWhcHEgBXK2tKRk9aZVA1FDJNQwhGaxUHFQdcGF0TABsBXBlrFA%3D%3D";</script>
+			<script type="text/javascript" charset="utf-8" src="http://u.x.jd.com/static/js/auto.js"></script>
 			<div class="clear"></div>
 		</div>
 		
 		<!--右侧内容-->
 		<div class=" con_right">
-			<div>广告</div>
+			<div>
+			<script type="text/javascript">var jd_union_pid=""+adcs[0];var jd_union_euid="";</script>
+			<script type="text/javascript" src="http://ads.union.jd.com/static/js/union.js"></script>
+			</div>
 			<div id="recommendApp" ng-controller="recommendCtrl" class="hot module">
 				<h3 style="border-bottom:1px solid #CCC;">精彩推荐
 					<span ng-click="other()" class="index_other">更多 »</span>
@@ -97,11 +113,14 @@
                     </div>
 				</div>
 			</div>
-			<div>广告</div>
+			<div>
+			<script type="text/javascript">var jd_union_pid="410873206";var jd_union_euid="";</script>
+			<script type="text/javascript" src="http://ads.union.jd.com/static/js/union.js"></script>
+			</div>
 		</div>
-		<div>广告</div>
+		
 	</div>
-	
+	<div class="clear"></div>
 	<div class="footer">
         <p><a rel="nofollow" href="http://www.2shui.com.cn/">2水网</a>|
         	<a rel="nofollow" href="#">加入我们</a>|

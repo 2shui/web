@@ -14,7 +14,9 @@
   	<link rel="canonical" href="/index.html"/>
   	<script type="text/javascript" src="http://${site}/js/angular.min.js"></script>
   	<script type="text/javascript" src="http://${site}/js/common.js"></script>
-  	
+  	<script type="text/javascript">var adgs = new Array();
+    	var adcs = new Array();<#list adcs as add>adcs[${add_index}] = ${add};</#list>adcs.sort(randomsort);
+    </script>
   </head>
   <body>
   	<div class="header">
@@ -33,7 +35,10 @@
 	        <div class="clear"></div>
 	    </div>
 	</div>
-	<div class="con" style="height:80px;">广告</div>
+	<div class="con" style="height:90px;">
+	<script type="text/javascript">var jd_union_unid="1000034163",jd_ad_ids="505:6",jd_union_pid="CM/SpNzFKhDznu3cAxoAIOPa9cMBKgA=";var jd_width=960;var jd_height=90;var jd_union_euid="";var p="BxIGXB1ZFQsVNwpfBkgyTUMIRmtKRk9aZV8ETVxNNwpfBkgyZUU1XTsWXkhnN08hFXVLDzROK10DRAtZK14VAxQPVhtdHTISBlQaWhcHEgBXK2tKRk9aZVA1FDJNQwhGaxUHFQdcGF4RChUFVB5rFA%3D%3D";</script>
+	<script type="text/javascript" charset="utf-8" src="http://u.x.jd.com/static/js/auto.js"></script>
+	</div>
 	<div class="con">
 		<div class="con_left">
 			<div id="hotApp" ng-controller="hotCtrl">
@@ -57,7 +62,12 @@
 					<div class="clear"></div>
 				</div>
 			</div>
-			<div style="height:80px;">广告</div>
+			<div>
+			<script type="text/javascript">var jd_union_unid="1000034163",jd_ad_ids="1470:6",jd_union_pid="CIqV3N/FKhDznu3cAxoAILna8MMBKgA=";
+			var jd_width=629;var jd_height=144;var jd_union_euid="";
+			var p="BxIGUxNbFgEXNwpfBkgyTUMIRmtKRk9aZV8ETVxNNwpfBkgyQVI%2BcjlhakBiHX0NcQQWeA14DGMYYgtZK14VAxQPVhtdHTISBlQaWhcHEgBXK2tKRk9aZVA1FDJNQwhGaxUHFQdcGVsTChQFXB1rFA%3D%3D";</script>
+			<script type="text/javascript" charset="utf-8" src="http://u.x.jd.com/static/js/auto.js"></script>
+			</div>
 			<div id="randomApp" ng-controller="randomCtrl">
 				<div style="border-bottom:1px solid #CCC;">
 					<b><span>随机看</span></b>
@@ -72,14 +82,19 @@
 					</ul>
 				</div>
 			</div>
-			<div>广告</div>
+			<div>
+			<script type="text/javascript">var jd_union_unid="1000034163",jd_ad_ids="1470:6",jd_union_pid="CIKq6N/FKhDznu3cAxoAIMTq8MMBKgA=";
+			var jd_width=629;var jd_height=144;var jd_union_euid="";
+			var p="BxIGUxNbFgEXNwpfBkgyTUMIRmtKRk9aZV8ETVxNNwpfBkgyCAYhbxpQS29lVmFdYl5UegtdGnBZVAtZK14VAxQPVhtdHTISBlQaWhcHEgBXK2tKRk9aZVA1FDJNQwhGaxUHFQdcGVsdChUAUx9rFA%3D%3D";</script>
+			<script type="text/javascript" charset="utf-8" src="http://u.x.jd.com/static/js/auto.js"></script>
+			</div>
 			<div class="clear"></div>
 		</div>
 		
 		<!--右侧内容-->
 		<div class=" con_right">
-			<!-- @@@@@@@@  引入广告 -->
-			<div>广告</div>
+			<div>
+			</div>
 			<div class="hot_links">
 				<h3>热门链接</h3>
 				<ul>
@@ -93,7 +108,10 @@
 				</ul>
 				<div class="clear"></div>
 			</div>
-			<div>广告</div>
+			<div>
+			<script type="text/javascript">var jd_union_unid="1000034163",jd_ad_ids="513:6",jd_union_pid="CMG19d/FKhDznu3cAxoAIOXS8MMBKgA=";var jd_width=300;var jd_height=250;var jd_union_euid="";var p="BxIGUxNaFgcXNwpfBkgyTUMIRmtKRk9aZV8ETVxNNwpfBkgyRlMWcAZvSRZlVFsaamNNHQcaHlRwYgtZK14VAxQPVhtdHTISBlQaWhcHEgBXK2tKRk9aZVA1FDJNQwhGaxUHFQdcGVgWAhIHVxJrFA%3D%3D";</script>
+			<script type="text/javascript" charset="utf-8" src="http://u.x.jd.com/static/js/auto.js"></script>
+			</div>
 			<!--最热点击-->
 			<div class="hot module">
 				<h3>热点排行</h3>
@@ -129,11 +147,13 @@
                     -->
 				</div>
 			</div>
-			<div>广告</div>
+			<div><!-- adv -->
+			</div>
 		</div>
-		<div>广告</div>
+		
 	</div>
 	
+	<div class="clear"></div>
 	<div class="footer">
         <p><a rel="nofollow" href="http://www.2shui.com.cn/">2水网</a>|
         	<a rel="nofollow" href="#">加入我们</a>|

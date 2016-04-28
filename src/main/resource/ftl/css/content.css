@@ -78,7 +78,7 @@ div.con_left_title_span1 a:hover{ width: 80px;  height: 18px;  background: url(.
 .con_right_list2 li p{ height:60px; width:160px; overflow:hidden; line-height:20px; color:#7F7F7F; padding-top:5px;}
 .con_right_list2 li a{height:100px; display:block; margin-top:10px; }
 .con_right_list2 li a:hover{height:100px; display:block; background:#F0F0F0;  }
-.IndexTabs{	overflow:hidden;  width:300px; height:340px;}
+.IndexTabs{	overflow:hidden;  width:300px; /* height:340px;*/}
 .IndexTabs .TabTitle{overflow:hidden;margin:0px;padding:0px;}
 .tab-content{ padding-top:10px;}
 .IndexTabs .TabTitle li{float:left;	text-align:center;	width:73px;	border:1px solid #E0E0E0;overflow:hidden;}

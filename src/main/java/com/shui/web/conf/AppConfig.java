@@ -12,6 +12,10 @@ public class AppConfig {
 	 * */
 	public static final int HOT_WORD_NUM = 15;
 	/**
+	 * 文章页广告链接数
+	 * */
+	public static final int PAGE_ADD_NUM = 5;
+	/**
 	 * 首页热门文章数量
 	 * */
 	public static final int HOT_ARTICLE_NUM = 30;

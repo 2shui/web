@@ -59,6 +59,8 @@ public class PageService {
 	
 	private void staticPage(Page page, int pageNo) {
 		List<Page> list = pageMapper.getRandom(AppConfig.RANDOM_ARTICLE_NUM);
+//		String path = FreemarkerUtils.class.getResource("/").getFile()
+//				 + "/ftl/";
 		FreemarkerUtils.initTemplate(path, "page.ftl", null);
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("title", page.getTitle());
@@ -67,6 +69,8 @@ public class PageService {
 		map.put("sld", AppConfig.DYNAMIC_SITE);
 		map.put("recommend", list);
 		map.putAll(subStringM(page.getContent(), pageNo));
+		map.put("adgs", jdAdgs());
+		map.put("adcs", jdAdcs());
 		
 		String fileName;
 		if (pageNo > 1) {
@@ -84,6 +88,8 @@ public class PageService {
 
 	public void staticIndex(List<Page> hotArticle, List<Page> randomArticle,
 			List<Page> ranklistArticle, List<String> hotWord) {
+//		String path = FreemarkerUtils.class.getResource("/").getFile()
+//				 + "/ftl/";
 		FreemarkerUtils.initTemplate(path, "index.ftl", null);
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("hotArticle", hotArticle);
@@ -92,6 +98,7 @@ public class PageService {
 		map.put("hotWord", hotWord);
 		map.put("site", AppConfig.WEB_SITE);
 		map.put("sld", AppConfig.DYNAMIC_SITE);
+		map.put("adcs", jdAdcs());
 		FreemarkerUtils.analysisTemplate(
 				PropUtils.getValue("resource.properties", "pagePath")
 						+ "index.html", map, null);
@@ -109,6 +116,38 @@ public class PageService {
 		int toIndex = hotWord.size() > AppConfig.HOT_WORD_NUM ? AppConfig.HOT_WORD_NUM
 				: hotWord.size();
 		list = hotWord.subList(0, toIndex);
+
+		return list;
+	}
+	
+	/**
+	 * 商品广告推送
+	 * */
+	public List<String> jdAdgs() {
+		List<String> list = new ArrayList<String>();
+		String hots = (String) PropUtils.getProps("resource.properties").get(
+				"jdadg");
+		List<String> jdAds = Arrays.asList(hots.split(","));
+		Collections.shuffle(jdAds);
+		int toIndex = jdAds.size() > AppConfig.PAGE_ADD_NUM ? AppConfig.PAGE_ADD_NUM
+				: jdAds.size();
+		list = jdAds.subList(0, toIndex);
+
+		return list;
+	}
+	
+	/**
+	 * 栏目广告推送
+	 * */
+	public List<String> jdAdcs() {
+		List<String> list = new ArrayList<String>();
+		String hots = (String) PropUtils.getProps("resource.properties").get(
+				"jdadc");
+		List<String> jdAds = Arrays.asList(hots.split(","));
+		Collections.shuffle(jdAds);
+		int toIndex = jdAds.size() > AppConfig.PAGE_ADD_NUM ? AppConfig.PAGE_ADD_NUM
+				: jdAds.size();
+		list = jdAds.subList(0, toIndex);
 
 		return list;
 	}
