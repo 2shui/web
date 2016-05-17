@@ -5,14 +5,10 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.shui.web.model.Page;
 
 import freemarker.template.Configuration;
 import freemarker.template.DefaultObjectWrapper;
@@ -34,33 +30,30 @@ public class FreemarkerUtils {
 	private FreemarkerUtils() {
 	}
 
-	public static void init(String filePath) {
+	public static void init(File file) {
 		if (null == config) {
 			config = new Configuration();
 			try {
-				config.setDirectoryForTemplateLoading(new File(filePath));
+				config.setDirectoryForTemplateLoading(file);
 				config.setObjectWrapper(new DefaultObjectWrapper());
 			} catch (IOException e) {
-				log.error("init freemarker config error:" + e);
+				log.error("freemarker init config error:" + e);
 			}
 		}
 	}
 
 	public static void initTemplate(String fileName, String codeType) {
+		codeType = null == codeType ? "UTF-8" : codeType;
+		File filePath = new File(FreemarkerUtils.class.getResource("/")
+				.getFile());
+		if (null == config) {
+			init(filePath.getParentFile());
+		}
 		try {
 			template = config.getTemplate(fileName, codeType);
 		} catch (IOException e) {
-			log.error("init freemarker template error:" + e);
+			log.error("freemarker initTemplate template error:" + e);
 		}
-	}
-
-	public static void initTemplate(String filePath, String fileName,
-			String codeType) {
-		if (null == config) {
-			init(filePath);
-		}
-		codeType = null == codeType ? "UTF-8" : codeType;
-		initTemplate(fileName, codeType);
 	}
 
 	public static void analysisTemplate(String file, Map<?, ?> data,
@@ -79,14 +72,4 @@ public class FreemarkerUtils {
 		}
 	}
 	
-	
-	// TODO
-	public static void create(Page page) {
-		String path = FreemarkerUtils.class.getResource("/").getFile() + "/ftl/";
-		FreemarkerUtils.initTemplate(path, "page.ftl", null);
-		Map<String, String> map = new HashMap<String, String>();
-		map.put("title", page.getTitle());
-		map.put("body", page.getContent());
-		FreemarkerUtils.analysisTemplate(path + "/html/"+new Date().getTime()+".html", map, null);
-	}
 }

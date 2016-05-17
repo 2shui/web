@@ -17,18 +17,19 @@ public class PropUtils {
 
 	public static Properties getProps(String propFileName) {
 		Properties props = new Properties();
-		String path = propFileName;
+//		String path = propFileName;
 		InputStream ins = null;
 		try {
-			ins = Thread.currentThread().getContextClassLoader()
-					.getResourceAsStream(path);
-			if(null == ins) {
-				File file = new File(AppConfig.RESOURCE_PATH + path);
-				ins = new FileInputStream(file);
-			}
+//			ins = Thread.currentThread().getContextClassLoader()
+//					.getResourceAsStream(path);
+			ins = PropUtils.class.getResourceAsStream("/"+propFileName);
+//			if(null == ins) {
+//				File file = new File(AppConfig.RESOURCE_PATH + path);
+//				ins = new FileInputStream(file);
+//			}
 			props.load(ins);
 		} catch (IOException e) {
-			log.error("error loading file " + path + " " + e.getMessage(), e);
+			log.error("error loading file " + propFileName + " " + e.getMessage(), e);
 		} finally {
 			IOUtils.closeQuietly(ins);
 		}

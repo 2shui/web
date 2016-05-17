@@ -32,7 +32,6 @@ public class PageService {
 	private static Logger log = LoggerFactory.getLogger(PageService.class);
 	@Autowired
 	private PageMapper pageMapper;
-	private String path = AppConfig.RESOURCE_PATH + "ftl/";
 	
 	public void staticPage(Page page) {
 		Decimal52 decimal = new Decimal52();
@@ -59,9 +58,7 @@ public class PageService {
 	
 	private void staticPage(Page page, int pageNo) {
 		List<Page> list = pageMapper.getRandom(AppConfig.RANDOM_ARTICLE_NUM);
-//		String path = FreemarkerUtils.class.getResource("/").getFile()
-//				 + "/ftl/";
-		FreemarkerUtils.initTemplate(path, "page.ftl", null);
+		FreemarkerUtils.initTemplate("page.ftl", null);
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("title", page.getTitle());
 		map.put("pageName", page.getFileName());
@@ -88,9 +85,7 @@ public class PageService {
 
 	public void staticIndex(List<Page> hotArticle, List<Page> randomArticle,
 			List<Page> ranklistArticle, List<String> hotWord) {
-//		String path = FreemarkerUtils.class.getResource("/").getFile()
-//				 + "/ftl/";
-		FreemarkerUtils.initTemplate(path, "index.ftl", null);
+		FreemarkerUtils.initTemplate("index.ftl", null);
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("hotArticle", hotArticle);
 		map.put("randomArticle", randomArticle);
@@ -193,7 +188,7 @@ public class PageService {
 	public void siteMap(List<Page> list) {
 		FileOutputStream os = null;
 		try {
-			String filePath = AppConfig.ROOT_PATH + "site.txt";
+			String filePath = PropUtils.getValue("resource.properties", "pagePath") + "site.txt";
 			File file = new File(filePath);
 			if (!file.exists()) {
 				file.createNewFile();
