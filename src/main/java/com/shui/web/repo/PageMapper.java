@@ -47,6 +47,12 @@ public interface PageMapper {
 	@Select("select * from web where fileName IS NULL order by fileName limit #{begin},#{num}")
 	List<Page> findNotStatic(@Param("begin") int begin, @Param("num") int num);
 	
+	/**
+	 * 所有静态化页面
+	 * */
+	@Select("select * from web where fileName IS NOT NULL")
+	List<Page> findStatic();
+	
 	@Update("update web set hits=hits+1 where fileName=#{name}")
 	void readOne(@Param("name") String name);
 	

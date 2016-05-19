@@ -1,6 +1,7 @@
 package com.shui.web;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,13 +9,16 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Scope;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.shui.web.conf.AppConfig;
 import com.shui.web.model.Page;
 import com.shui.web.repo.PageMapper;
+import com.shui.web.server.FullIndexService;
 import com.shui.web.server.PageService;
 import com.shui.web.util.Decimal52;
+import com.shui.web.util.SafeMapBuilder;
 
 @RestController
 @SpringBootApplication
@@ -27,6 +31,8 @@ public class AdminController {
 	private PageMapper pageMapper;
 	@Autowired
 	private PageService pageService;
+	@Autowired
+	private FullIndexService fullIndexService;
 	
 	@RequestMapping("/dec/{ymdh}")
 	public String test(@PathVariable("ymdh") Integer ymdh) {
@@ -80,5 +86,25 @@ public class AdminController {
 			List<String> hotWord = pageService.hotWord();
 			pageService.staticIndex(hotArticle, randomArticle, ranklistArticle, hotWord);
 		}
+	}
+	
+	@RequestMapping("/indexed/{auth}")
+	public void indexed(@PathVariable("auth") String auth){
+		if (pageService.auth(auth)) {
+			fullIndexService.fullIndex();
+		}
+	}
+	
+	@RequestMapping("/s/{key}/{auth}")
+	@ResponseBody
+	public List<Map<String, Object>> search(@PathVariable("auth") String auth,
+			@PathVariable("key") String key) {
+		if (pageService.auth(auth)) {
+			String[] fields = new String[] { AppConfig.INDEX_TITLE,
+					AppConfig.INDEX_CONTENT };
+			List<Page> page = fullIndexService.search(fields, key);
+			return SafeMapBuilder.buildMap(page);
+		}
+		return null;
 	}
 }

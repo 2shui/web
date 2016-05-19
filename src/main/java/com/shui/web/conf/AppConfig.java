@@ -5,6 +5,7 @@ public class AppConfig {
 	public static final String DYNAMIC_SITE = "boot.2shui.com.cn";
 	public static final String BAIDU_YUYIN_API_KEY = "1XxVi62iAZBceubEhcRwIrSQT";
 	public static final String BAIDU_YUYIN_SECRET_KEY = "dc49b2f97895c463337e803c9c77c4f31";
+	public static final String WECHAT_TOKEN = "123456abc";
 //	public static final String RESOURCE_PATH = "/opt/applications/";
 //	public static final String ROOT_PATH = "/opt/page/html/";
 	/**
@@ -37,4 +38,12 @@ public class AppConfig {
 	 * 文章单页字数
 	 * */
 	public static final int ARTICLE_WORLD_NUM = 600;
+	
+	/**
+	 * 微信全文索引检索数目
+	 * */
+	public static final int WX_INDEX_NUM = 5;
+	public static final String INDEX_TITLE = "title";
+	public static final String INDEX_FILE_NAME = "uri";
+	public static final String INDEX_CONTENT = "con";
 }
