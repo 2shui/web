@@ -141,8 +141,7 @@ public class WechatService {
 				+ "]]></FromUserName>");
 		sb.append("<CreateTime>" + System.currentTimeMillis() / 1000
 				+ "</CreateTime>");
-		sb.append("<MsgType><![CDATA[event]]></MsgType>");
-		sb.append("<Event><![CDATA[SCAN]]></Event>");
+		sb.append("<MsgType><![CDATA[text]]></MsgType>");
 		sb.append("<Content><![CDATA[关注养生，关注健康，关注美食，关爱自己，关爱家人。欢迎您订阅2水，更多信息请输入消息查询，如“祛湿”]]></Content>");
 		sb.append("</xml>");
 		return sb.toString();

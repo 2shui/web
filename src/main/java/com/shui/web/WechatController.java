@@ -56,7 +56,8 @@ public class WechatController {
 						reqMap.get("Content"));
 				String input = wechatService.buildResponse(list, reqMap, WechatType.TEXT);
 				response.getWriter().write(input);
-			} else if("event".equalsIgnoreCase(reqMap.get("MsgType"))){
+			} else if("event".equalsIgnoreCase(reqMap.get("MsgType"))
+					&& "subscribe".equalsIgnoreCase(reqMap.get("Event"))){
 				String input = wechatService.buildResponse(null, reqMap, WechatType.EVENT);
 				response.getWriter().write(input);
 			}else {
