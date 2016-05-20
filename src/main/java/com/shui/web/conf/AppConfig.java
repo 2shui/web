@@ -5,7 +5,11 @@ public class AppConfig {
 	public static final String DYNAMIC_SITE = "boot.2shui.com.cn";
 	public static final String BAIDU_YUYIN_API_KEY = "1XxVi62iAZBceubEhcRwIrSQT";
 	public static final String BAIDU_YUYIN_SECRET_KEY = "dc49b2f97895c463337e803c9c77c4f31";
-	public static final String WECHAT_TOKEN = "123456abc";
+	public static final String WECHAT_APPID = "123";
+	public static final String WECHAT_SECRET = "123";
+	public static long WECHAT_EXPIRES_TIME = 0;
+	public static final String WECHAT_TOKEN = "123";
+	public static String WECHAT_ACCESS_TOKEN = "";
 //	public static final String RESOURCE_PATH = "/opt/applications/";
 //	public static final String ROOT_PATH = "/opt/page/html/";
 	/**

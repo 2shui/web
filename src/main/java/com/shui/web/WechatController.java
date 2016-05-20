@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.shui.web.bean.WechatType;
 import com.shui.web.conf.AppConfig;
 import com.shui.web.model.Page;
 import com.shui.web.server.FullIndexService;
@@ -53,10 +54,13 @@ public class WechatController {
 				List<Page> list = fullIndexService.search(new String[] {
 						AppConfig.INDEX_TITLE, AppConfig.INDEX_CONTENT },
 						reqMap.get("Content"));
-				String input = wechatService.buildResponse(list, reqMap);
+				String input = wechatService.buildResponse(list, reqMap, WechatType.TEXT);
 				response.getWriter().write(input);
-			} else {
-				String input = wechatService.buildNotSupportResponse(reqMap);
+			} else if("event".equalsIgnoreCase(reqMap.get("MsgType"))){
+				String input = wechatService.buildResponse(null, reqMap, WechatType.EVENT);
+				response.getWriter().write(input);
+			}else {
+				String input = wechatService.buildResponse(null, reqMap, WechatType.IMAGE);
 				response.getWriter().write(input);
 			}
 		}

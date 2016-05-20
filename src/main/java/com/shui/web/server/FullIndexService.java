@@ -34,8 +34,7 @@ public class FullIndexService {
 			for (Document doc : documents) {
 				Page page = new Page();
 				page.setTitle(doc.get(AppConfig.INDEX_TITLE));
-				page.setFileName("http://" + AppConfig.WEB_SITE + "/"
-						+ doc.get(AppConfig.INDEX_FILE_NAME) + ".html");
+				page.setFileName(doc.get(AppConfig.INDEX_FILE_NAME));
 				page.setContent(doc.get(AppConfig.INDEX_CONTENT));
 				result.add(page);
 			}
