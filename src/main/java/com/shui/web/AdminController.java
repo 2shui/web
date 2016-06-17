@@ -3,6 +3,8 @@ package com.shui.web;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -13,8 +15,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.shui.web.conf.AppConfig;
+import com.shui.web.model.Book;
 import com.shui.web.model.Page;
+import com.shui.web.repo.BookMapper;
 import com.shui.web.repo.PageMapper;
+import com.shui.web.server.BookService;
 import com.shui.web.server.FullIndexService;
 import com.shui.web.server.PageService;
 import com.shui.web.util.Decimal52;
@@ -30,7 +35,11 @@ public class AdminController {
 	@Autowired
 	private PageMapper pageMapper;
 	@Autowired
+	private BookMapper bookMapper;
+	@Autowired
 	private PageService pageService;
+	@Autowired
+	private BookService bookService;
 	@Autowired
 	private FullIndexService fullIndexService;
 	
@@ -106,5 +115,23 @@ public class AdminController {
 			return SafeMapBuilder.buildMap(page);
 		}
 		return null;
+	}
+	
+	@RequestMapping("/addBook")
+	public Book book(Book book, HttpServletResponse response) {
+		bookMapper.addBook(book);
+		response.setHeader("Access-Control-Allow-Origin", "http://"+AppConfig.WEB_SITE);
+		return book;
+	}
+	
+	@RequestMapping("/getBook/{id}")
+	public Book getbook(@PathVariable("id") long id) {
+		return bookMapper.getById(id);
+	}
+	
+	@RequestMapping("/staticBook/{bookName}")
+	public List<String> staticBook(@PathVariable("bookName") String bookName) {
+		List<Book> list = bookMapper.getByBookName(bookName);
+		return bookService.staticPage(list);
 	}
 }
