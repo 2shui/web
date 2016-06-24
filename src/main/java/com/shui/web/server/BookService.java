@@ -8,6 +8,7 @@ import java.util.Map;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.stereotype.Component;
 
+import com.mysql.jdbc.StringUtils;
 import com.shui.web.model.Book;
 import com.shui.web.util.FreemarkerUtils;
 import com.shui.web.util.PropUtils;
@@ -16,18 +17,38 @@ import com.shui.web.util.PropUtils;
 @Component("bookService")
 public class BookService {
 	public List<String> staticPage(List<Book> books) {
-		List<String> list = new ArrayList<String> ();
+		List<String> list = new ArrayList<String>();
 		FreemarkerUtils.initTemplate("book.ftl", null);
-		for(Book book:books){
+		String bookName = null;
+		for (Book book : books) {
+			if (null != bookName) {
+				bookName = book.getBookName();
+			}
 			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("title", book.getChineseName());
 			map.put("content", book.getContent());
-			String fileName = PropUtils.getValue("resource.properties", "bookPath")+
-					book.getBookName()+"_"+book.getBookNum()+".html";
+			String fileName = PropUtils.getValue("resource.properties",
+					"bookPath")
+					+ book.getBookName()
+					+ "_"
+					+ book.getBookNum()
+					+ ".html";
 			FreemarkerUtils.analysisTemplate(fileName, map, null);
 			list.add(fileName);
 		}
+		staticConver(bookName, books.size());
 		return list;
 	}
 	
+	private void staticConver(String bookName, int pageNum) {
+		if (!StringUtils.isNullOrEmpty(bookName)) {
+			FreemarkerUtils.initTemplate("bookConver.ftl", null);
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("name", bookName);
+			map.put("num", pageNum);
+			String fileName = PropUtils.getValue("resource.properties",
+					"bookPath") + bookName + ".html";
+			FreemarkerUtils.analysisTemplate(fileName, map, null);
+		}
+	}
 }

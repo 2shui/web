@@ -10,7 +10,7 @@
   	<meta name="keywords" content="2水,2水网,读书,读书笔记，书评，有态度，看客，在线读书，伴读" />
 	<meta name="description" content="2水网，做有态度的看客！读名著，写随笔，酒逢知己饮，诗向会人吟，三人行必有一伴读。" />
   	<style type="text/css">
-	.img_sina_share {
+	.img_mark {
 	    cursor: pointer;
 	    display: none;
 	    position: absolute;
@@ -19,7 +19,8 @@
   </head>
   <body style="margin: 5px 20px;">
   	${content}
-  	<img id="imgSinaShare" class="img_sina_share" style="display:none;" title="将选中内容分享到新浪微博" src="http://simg.sinajs.cn/blog7style/images/common/share.gif" />
+  	<img id="imgMark" class="img_mark" style="display:none;" 
+  		title="为该段添加读书笔记" src="http://img.2shui.com.cn/shui_25.png" />
 
 <script type="text/javascript">
 var $sinaMiniBlogShare = function(eleShare, eleContainer) {
@@ -48,13 +49,13 @@ var $sinaMiniBlogShare = function(eleShare, eleContainer) {
 		}
 	};
 	eleShare.onclick = function() {
-		var txt = funGetSelectTxt(), title = (eleTitle && eleTitle.innerHTML)? eleTitle.innerHTML : "未命名页面";
-		if (txt) {
-			window.open('http://v.t.sina.com.cn/share/share.php?title=' + txt + '→来自页面"' + title + '"的文字片段&url=' + window.location.href);	
-		}
+		var txt = funGetSelectTxt();
+		//, title = (eleTitle && eleTitle.innerHTML)? eleTitle.innerHTML : "未命名页面";
+		window.parent.openShare(txt, num);
+		eleShare.style.display = "none";
 	};
 };
-$sinaMiniBlogShare(document.getElementById("imgSinaShare"));
+$sinaMiniBlogShare(document.getElementById("imgMark"));
 </script>
 </body>
 </html>
