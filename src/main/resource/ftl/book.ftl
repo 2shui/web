@@ -10,52 +10,12 @@
   	<meta name="keywords" content="2水,2水网,读书,读书笔记，书评，有态度，看客，在线读书，伴读" />
 	<meta name="description" content="2水网，做有态度的看客！读名著，写随笔，酒逢知己饮，诗向会人吟，三人行必有一伴读。" />
   	<style type="text/css">
-	.img_mark {
-	    cursor: pointer;
-	    display: none;
-	    position: absolute;
-	}
 	</style>
   </head>
   <body style="margin: 5px 20px;">
   	${content}
-  	<img id="imgMark" class="img_mark" style="display:none;" 
-  		title="为该段添加读书笔记" src="http://img.2shui.com.cn/shui_25.png" />
 
 <script type="text/javascript">
-var $sinaMiniBlogShare = function(eleShare, eleContainer) {
-	var eleTitle = document.getElementsByTagName("title")[0];
-	eleContainer = eleContainer || document;
-	var funGetSelectTxt = function() {
-		var txt = "";
-		if(document.selection) {
-			txt = document.selection.createRange().text;	// IE
-		} else {
-			txt = document.getSelection();
-		}
-		return txt.toString();
-	};
-	eleContainer.onmouseup = function(e) {
-		e = e || window.event;
-		var txt = funGetSelectTxt(), sh = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
-		var left = (e.clientX - 40 < 0) ? e.clientX + 20 : e.clientX - 40, top = (e.clientY - 40 < 0) ? e.clientY + sh + 20 : e.clientY + sh - 40;
-		
-		if (txt) {
-			eleShare.style.display = "inline";
-			eleShare.style.left = left + "px";
-			eleShare.style.top = top + "px";
-		} else {
-			eleShare.style.display = "none";
-		}
-	};
-	eleShare.onclick = function() {
-		var txt = funGetSelectTxt();
-		//, title = (eleTitle && eleTitle.innerHTML)? eleTitle.innerHTML : "未命名页面";
-		window.parent.openShare(txt, num);
-		eleShare.style.display = "none";
-	};
-};
-$sinaMiniBlogShare(document.getElementById("imgMark"));
 </script>
 </body>
 </html>

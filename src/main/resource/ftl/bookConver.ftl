@@ -2,7 +2,7 @@
 	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-  	<title>${name}-2水网(2SHUI.COM.CN)--做有态度的看客！</title>
+  	<title>${chineseName}-2水网(2SHUI.COM.CN)--做有态度的看客！</title>
   	<meta name="keywords" content="2水,2水网,读书,读书笔记，书评，有态度，看客，在线读书，伴读" />
 	<meta name="description" content="2水网，做有态度的看客！读名著，写随笔，酒逢知己饮，诗向会人吟，三人行必有一伴读。" />
   	<meta name="viewport" content="width = 1050, user-scalable = no" />
@@ -11,6 +11,11 @@
 	<script type="text/javascript" src="http://${site}/js/modernizr.2.5.3.min.js"></script>
   
   	<style type="text/css">
+  	.img_mark {
+	    cursor: pointer;
+	    display: none;
+	    position: absolute;
+	}
   	#writeBox{
   		display:none;
   		top:0%;
@@ -72,6 +77,8 @@
 		</div>
 	</form>
 </div>
+<img id="imgMark" class="img_mark" style="display:none;" 
+  		title="为该段添加读书笔记" src="http://img.2shui.com.cn/shui_25.png" />
 <script type="text/javascript">
 
 function loadApp() {
@@ -94,9 +101,9 @@ function loadApp() {
 					currentPage = book.turn('page'),
 					pages = book.turn('pages');
 					
-					load("w", page);
+					load("w",'${name}', page);
 					if(pages > (page+1)){
-						load("w", page+1);
+						load("w",'${name}', page+1);
 					}
 				}
 			}
@@ -117,15 +124,15 @@ function loadApp() {
 	flipbook.bind(($.isTouch) ? 'touchend' : 'click', zoomHandle);
 }
 
-function load(prefix, index) {
+function load(prefix, bookName, index) {
 	var html = $('#' + prefix + index).html();
 	if(null == html || '' == html) {
-		$.ajax({url: index + '.html'}).done(function(pageHtml) {
+		$.ajax({url: bookName + '_' + index + '.html'}).done(function(pageHtml) {
 			$('#' + prefix + index).html(pageHtml);
 		});
 	}
 }
-load('w',1);
+load('w','${name}', 1);
 // Load the HTML4 version if there's not CSS transform
 yepnope({
 	test : Modernizr.csstransforms,
@@ -143,7 +150,7 @@ function openShare(txt, num) {
 	box.style.zIndex = 999;
 	var span = document.getElementById("box_tex");
 	markTxt = txt;markNum = num;
-	span.innerHTML = num+'#'+txt;
+	span.innerHTML = txt;
 }
 function mark() {
 	$("#bookName").val(markBook);
@@ -160,6 +167,40 @@ function mark() {
 		success: function(data) {alert('ok');console.log(data);}
 	});
 }
+
+var $sinaMiniBlogShare = function(eleShare, eleContainer) {
+	var eleTitle = document.getElementsByTagName("title")[0];
+	eleContainer = eleContainer || document;
+	var funGetSelectTxt = function() {
+		var txt = "";
+		if(document.selection) {
+			txt = document.selection.createRange().text;	// IE
+		} else {
+			txt = document.getSelection();
+		}
+		return txt.toString();
+	};
+	eleContainer.onmouseup = function(e) {
+		e = e || window.event;
+		var txt = funGetSelectTxt(), sh = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+		var left = (e.clientX - 40 < 0) ? e.clientX + 20 : e.clientX - 40, top = (e.clientY - 40 < 0) ? e.clientY + sh + 20 : e.clientY + sh - 40;
+		
+		if (txt) {
+			eleShare.style.display = "inline";
+			eleShare.style.left = left + "px";
+			eleShare.style.top = top + "px";
+		} else {
+			eleShare.style.display = "none";
+		}
+	};
+	eleShare.onclick = function() {
+		var txt = funGetSelectTxt();
+		//, title = (eleTitle && eleTitle.innerHTML)? eleTitle.innerHTML : "未命名页面";
+		openShare(txt, ${num});
+		eleShare.style.display = "none";
+	};
+};
+$sinaMiniBlogShare(document.getElementById("imgMark"));
 </script>
 
 </body>

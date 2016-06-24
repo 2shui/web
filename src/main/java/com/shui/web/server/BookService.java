@@ -20,14 +20,16 @@ public class BookService {
 	public List<String> staticPage(List<Book> books) {
 		List<String> list = new ArrayList<String>();
 		FreemarkerUtils.initTemplate("book.ftl", null);
-		String bookName = null;
+		String bookName = null,chineseName = null;
 		for (Book book : books) {
-			if (null == bookName) {
+			if (null == bookName || null == chineseName) {
 				bookName = book.getBookName();
+				chineseName = book.getChineseName();
 			}
 			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("title", book.getChineseName());
 			map.put("content", book.getContent());
+			map.put("num", book.getBookNum());
 			String fileName = PropUtils.getValue("resource.properties",
 					"bookPath")
 					+ book.getBookName()
@@ -37,15 +39,16 @@ public class BookService {
 			FreemarkerUtils.analysisTemplate(fileName, map, null);
 			list.add(fileName);
 		}
-		list.add(staticConver(bookName, books.size()));
+		list.add(staticConver(bookName, chineseName, books.size()));
 		return list;
 	}
 	
-	private String staticConver(String bookName, int pageNum) {
+	private String staticConver(String bookName, String chineseName, int pageNum) {
 		if (!StringUtils.isNullOrEmpty(bookName)) {
 			FreemarkerUtils.initTemplate("bookConver.ftl", null);
 			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("name", bookName);
+			map.put("chineseName", chineseName);
 			map.put("num", pageNum);
 			map.put("site", AppConfig.WEB_SITE);
 			String fileName = PropUtils.getValue("resource.properties",
