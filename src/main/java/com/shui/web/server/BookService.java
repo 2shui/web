@@ -9,6 +9,7 @@ import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.stereotype.Component;
 
 import com.mysql.jdbc.StringUtils;
+import com.shui.web.conf.AppConfig;
 import com.shui.web.model.Book;
 import com.shui.web.util.FreemarkerUtils;
 import com.shui.web.util.PropUtils;
@@ -21,7 +22,7 @@ public class BookService {
 		FreemarkerUtils.initTemplate("book.ftl", null);
 		String bookName = null;
 		for (Book book : books) {
-			if (null != bookName) {
+			if (null == bookName) {
 				bookName = book.getBookName();
 			}
 			Map<String, Object> map = new HashMap<String, Object>();
@@ -36,19 +37,22 @@ public class BookService {
 			FreemarkerUtils.analysisTemplate(fileName, map, null);
 			list.add(fileName);
 		}
-		staticConver(bookName, books.size());
+		list.add(staticConver(bookName, books.size()));
 		return list;
 	}
 	
-	private void staticConver(String bookName, int pageNum) {
+	private String staticConver(String bookName, int pageNum) {
 		if (!StringUtils.isNullOrEmpty(bookName)) {
 			FreemarkerUtils.initTemplate("bookConver.ftl", null);
 			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("name", bookName);
 			map.put("num", pageNum);
+			map.put("site", AppConfig.WEB_SITE);
 			String fileName = PropUtils.getValue("resource.properties",
 					"bookPath") + bookName + ".html";
 			FreemarkerUtils.analysisTemplate(fileName, map, null);
+			return fileName;
 		}
+		return null;
 	}
 }

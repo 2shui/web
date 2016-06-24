@@ -2,13 +2,13 @@
 	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-  	<title>${title}-2水网(2SHUI.COM.CN)--做有态度的看客！</title>
+  	<title>${name}-2水网(2SHUI.COM.CN)--做有态度的看客！</title>
   	<meta name="keywords" content="2水,2水网,读书,读书笔记，书评，有态度，看客，在线读书，伴读" />
 	<meta name="description" content="2水网，做有态度的看客！读名著，写随笔，酒逢知己饮，诗向会人吟，三人行必有一伴读。" />
   	<meta name="viewport" content="width = 1050, user-scalable = no" />
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  	<script type="text/javascript" src="${site}/js/jquery.min.js"></script>
-	<script type="text/javascript" src="${site}/js/modernizr.2.5.3.min.js"></script>
+  	<script type="text/javascript" src="http://${site}/js/jquery.min.js"></script>
+	<script type="text/javascript" src="http://${site}/js/modernizr.2.5.3.min.js"></script>
   
   	<style type="text/css">
   	#writeBox{
@@ -118,14 +118,14 @@ function loadApp() {
 }
 
 function load(prefix, index) {
-	var html = $('#' + parentPre + index).html();
+	var html = $('#' + prefix + index).html();
 	if(null == html || '' == html) {
 		$.ajax({url: index + '.html'}).done(function(pageHtml) {
 			$('#' + prefix + index).html(pageHtml);
 		});
 	}
 }
-
+load('w',1);
 // Load the HTML4 version if there's not CSS transform
 yepnope({
 	test : Modernizr.csstransforms,
