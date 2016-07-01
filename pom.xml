@@ -65,6 +65,12 @@
 			<artifactId>freemarker</artifactId>
 			<version>2.3.9</version>
 		</dependency>
+		<!-- weibo引入 -->
+		<dependency>
+		  <groupId>commons-httpclient</groupId>
+		  <artifactId>commons-httpclient</artifactId>
+		  <version>3.1</version>
+		</dependency>
 	
 		<dependency>
 			<groupId>com.google.code.gson</groupId>

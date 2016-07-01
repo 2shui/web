@@ -1,5 +1,6 @@
 package com.shui.web;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.mybatis.spring.annotation.MapperScan;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.shui.web.conf.AppConfig;
 import com.shui.web.model.Marks;
+import com.shui.web.model.Member;
 import com.shui.web.repo.MarksMapper;
 
 @RestController
@@ -24,10 +26,16 @@ public class BookController {
 	private MarksMapper marksMapper;
 	
 	@RequestMapping("/mark")
-	public Marks mark(Marks marks, HttpServletResponse response) {
-		marks.setCustomerId(123456L);
+	public String mark(Marks marks, HttpServletRequest request, HttpServletResponse response) {
+		Member member = (Member) request.getSession().getAttribute(AppConfig.BOOK_LOGIN);
+		marks.setCustomerId(member.getId());
 		marksMapper.addBook(marks);
-		response.setHeader("Access-Control-Allow-Origin", "http://"+AppConfig.WEB_SITE);
-		return marks;
+		return AppConfig.RETURN_SUCCESS;
 	}
+	
+	@RequestMapping("/interested")
+	public Marks interested() {
+		return null;
+	}
+	
 }

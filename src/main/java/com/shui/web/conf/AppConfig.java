@@ -1,6 +1,10 @@
 package com.shui.web.conf;
 
 public class AppConfig {
+	public static final String LOGIN_NAME = "associator_name";
+	
+	public static final String BOOK_LOGIN = "login_user";
+	public static final String FULL_SITE = "http://www.2shui.com.cn";
 	public static final String WEB_SITE = "www.2shui.com.cn";
 	public static final String DYNAMIC_SITE = "boot.2shui.com.cn";
 	public static final String BAIDU_YUYIN_API_KEY = "1XxVi62iAZBceubEhcRwIrSQT";
@@ -10,6 +14,8 @@ public class AppConfig {
 	public static long WECHAT_EXPIRES_TIME = 0;
 	public static final String WECHAT_TOKEN = "wfJHE7Kfd5ds0g9r34";
 	public static String WECHAT_ACCESS_TOKEN = "";
+	
+	public static final String RETURN_SUCCESS = "OK";
 //	public static final String RESOURCE_PATH = "/opt/applications/";
 //	public static final String ROOT_PATH = "/opt/page/html/";
 	/**

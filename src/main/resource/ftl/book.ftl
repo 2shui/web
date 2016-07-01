@@ -9,13 +9,8 @@
   	<title>${title}-2水网(2SHUI.COM.CN)--做有态度的看客！</title>
   	<meta name="keywords" content="2水,2水网,读书,读书笔记，书评，有态度，看客，在线读书，伴读" />
 	<meta name="description" content="2水网，做有态度的看客！读名著，写随笔，酒逢知己饮，诗向会人吟，三人行必有一伴读。" />
-  	<style type="text/css">
-	</style>
   </head>
   <body style="margin: 5px 20px;">
   	${content}
-
-<script type="text/javascript">
-</script>
 </body>
 </html>

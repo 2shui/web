@@ -43,3 +43,10 @@ delete this.container[key];
 function randomsort(a, b) {
 	return Math.random()>0.5 ? -1 : 1;
 }
+function getCookie(name) {
+	var arr,reg=new RegExp("(^| )"+name+"=([^;]*)(;|$)");
+	if(arr=document.cookie.match(reg))
+		return unescape(arr[2]);
+	else
+		return null;
+}

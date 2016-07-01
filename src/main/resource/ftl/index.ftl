@@ -1,5 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns:wb="http://open.weibo.com/wb">
   <head>
   	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   	<meta name="mobile-agent" content="format=html5;url=http://www.2shui.com.cn/index.html">
@@ -14,6 +14,7 @@
   	<link rel="canonical" href="/index.html"/>
   	<script type="text/javascript" src="http://${site}/js/angular.min.js"></script>
   	<script type="text/javascript" src="http://${site}/js/common.js"></script>
+  	<script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js?appkey=850480782" type="text/javascript" charset="utf-8"></script>
   	<script type="text/javascript">var adgs = new Array();
     	var adcs = new Array();<#list adcs as add>adcs[${add_index}] = ${add};</#list>adcs.sort(randomsort);
     </script>
@@ -26,6 +27,14 @@
 	            <div class="clear"></div>
 	        </div>
 	        <span class="a1">
+	        	<wb:login-button type="3,5" onlogin="login" style="float:right;margin:5px 0;" onlogout="logout">登录按钮</wb:login-button>
+	        	<!--
+	        	<span id="associator" style="float:right;margin:5px 0;font-size:12px;">
+					<a href="http://boot.test2shui.com.cn/login/weibo">
+						<img src="http://timg.sjs.sinajs.cn/t4/appstyle/widget/images/loginButton/loginButton_18.png">
+					</a>
+				</span>
+				-->
 	        	<form novalidate name="search" ng-submit="submit()" ng-controller="searchCtrl" id="searchApp">
 					<input type="text" ng-model="text" placeholder="请输入搜索关键词" required />
 					<button type="submit" class="BTN">搜索</button>
