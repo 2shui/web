@@ -71,6 +71,12 @@
 		  <artifactId>commons-httpclient</artifactId>
 		  <version>3.1</version>
 		</dependency>
+		<!-- QQ第三方登录 -->
+		<dependency>
+		    <groupId>net.gplatform</groupId>
+		    <artifactId>Sdk4J</artifactId>
+		    <version>2.0</version>
+		</dependency>
 	
 		<dependency>
 			<groupId>com.google.code.gson</groupId>
