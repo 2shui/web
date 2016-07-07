@@ -15,6 +15,13 @@
   </head>
   <body style="margin: 5px 20px;">
   	<span id="associator" style="float:right;margin:5px 0;font-size:12px;">
+  		<a style="text-decoration:none;" href="http://boot.2shui.com.cn/login/qq">
+			<img src="http://img.2shui.com.cn/qq.png">
+		</a>
+		<a style="text-decoration:none;" href="http://boot.2shui.com.cn/login/weibo">
+			<img src="http://img.2shui.com.cn/weibo.png">
+		</a>
+  	
 		<a href="http://boot.2shui.com.cn/login/weibo">
 			<img src="http://timg.sjs.sinajs.cn/t4/appstyle/widget/images/loginButton/loginButton_18.png">
 		</a>
@@ -73,7 +80,9 @@
 -->
 <img id="imgMark" class="img_mark" style="display:none;" 
   		title="为该段添加读书笔记" src="http://img.2shui.com.cn/shui_25.png" />
-<div class="share_box" id="share_box"></div>
+<div class="share_box" id="share_box">
+	<div class="share_inner" id="share_inner"></div>
+</div>
 
 <script type="text/javascript">var name = "${name}";var uri='http://boot.2shui.com.cn';var uul='http://www.2shui.com.cn';</script>
 <script type="text/javascript" src="http://${site}/js/book.js"></script>

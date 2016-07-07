@@ -46,7 +46,15 @@ function randomsort(a, b) {
 function getCookie(name) {
 	var arr,reg=new RegExp("(^| )"+name+"=([^;]*)(;|$)");
 	if(arr=document.cookie.match(reg))
-		return unescape(arr[2]);
+		return decodeURI(arr[2]);
 	else
 		return null;
 }
+var dbody,clazz;
+function endHandler(){
+	dbody.removeEventListener('animationend', endHandler);
+	dbody.className = '';
+	setTimeout(function () {dbody.className = clazz;}, 0);
+}
+function reloadStyle(did, className){dbody = document.getElementById(did);clazz=className;
+dbody.addEventListener('animationend',endHandler);}

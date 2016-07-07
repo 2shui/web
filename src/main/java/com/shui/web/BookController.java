@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.shui.web.bean.NoteMark;
 import com.shui.web.conf.AppConfig;
 import com.shui.web.model.Marks;
 import com.shui.web.model.Member;
@@ -34,8 +35,9 @@ public class BookController {
 	}
 	
 	@RequestMapping("/interested")
-	public Marks interested() {
-		return null;
+	public NoteMark interested() {
+		NoteMark note = marksMapper.getPageMark(new Marks("prince", 1));
+		return note;
 	}
 	
 }

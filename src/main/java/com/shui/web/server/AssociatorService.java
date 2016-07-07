@@ -35,22 +35,24 @@ public class AssociatorService {
 	public String weiboLogin(HttpServletRequest request, HttpServletResponse resp, AccessToken token) {
 		if(!StringUtils.isNullOrEmpty(token.getAccessToken())) {
 			Member m = memberMapper.getByOpenidAndType(token.getUid(), "weibo");
+			String userName = null;
 			if(null == m) {
 				try {
 					User user = new Users(token.getAccessToken()).showUserById(token.getUid());
 					String uid = user.getId();
-					String userName = user.getName();
+					userName = user.getName();
 					String profileImage = user.getProfileImageUrl();
 					String gender = user.getGender();
 					Member member = new Member(uid, userName, new Date(), "weibo", gender, null, profileImage);
 					memberMapper.reg(member);
-					m = memberMapper.getByOpenidAndType(uid, "weibo");
 				} catch (WeiboException e) {
 					log.error("weibo token showUserById error:{}", e);
 					e.printStackTrace();
 				}
+			} else {
+				userName = m.getNickName();
 			}
-			Cookies.set(resp, AppConfig.LOGIN_NAME, m.getNickName());
+			Cookies.set(resp, AppConfig.LOGIN_NAME, userName);
 			request.getSession().setAttribute(AppConfig.BOOK_LOGIN, m);
 		}
 		
@@ -67,17 +69,21 @@ public class AssociatorService {
 			try {
 				String openID = openIDObj.getUserOpenID();
 				Member m = memberMapper.getByOpenidAndType(openID, "qq");
+				String userName = null;
 				if(null == m) {
 					UserInfo qzoneUserInfo = new UserInfo(accessToken, openID);
 					UserInfoBean userInfoBean = qzoneUserInfo.getUserInfo();
-					String userName = userInfoBean.getNickname();
+					userName = userInfoBean.getNickname();
 					String profileImage = userInfoBean.getAvatar().getAvatarURL30();
 					String gender = userInfoBean.getGender();
-					Member member = new Member(openID, userName, new Date(), "weibo", gender, null, profileImage);
+					Member member = new Member(openID, userName, new Date(), "qq", gender, null, profileImage);
 					memberMapper.reg(member);
 					m = memberMapper.getByOpenidAndType(openID, "qq");
+				} else {
+					userName = m.getNickName();
 				}
-				Cookies.set(resp, AppConfig.LOGIN_NAME, m.getNickName());
+				
+				Cookies.set(resp, AppConfig.LOGIN_NAME, userName);
 				request.getSession().setAttribute(AppConfig.BOOK_LOGIN, m);
 			} catch (QQConnectException e) {
 				log.error("qq access error:{}", e);

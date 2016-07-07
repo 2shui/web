@@ -20,6 +20,7 @@ function loadApp() {
 					if(pages > (page+1)){
 						load("w",name, page+1);
 					}
+					setTimeout(interested, 5000, name, page);
 				}
 			}
 	});
@@ -74,6 +75,7 @@ function login(){
 }
 function associator() {
 	var name = getCookie('associator_name');
+	//name = decodeURI(name);
 	if(null!=name) {
 		$("#associator").html(name+"<a style='color:#999;margin-left:5px;' href='javascript:logout();'>退出</span>");
 	}
@@ -97,8 +99,9 @@ function mark() {
 			console.log(data);
 			if('nologin' == data.sign) {
 				login();
+			} else {
+				alert("笔记添加成功！");
 			}
-			alert("笔记添加成功！");
 			$("#writeBox").hide();
 		}
 	});
@@ -139,20 +142,31 @@ var $sinaMiniBlogShare = function(eleShare, eleContainer) {
 function logout() {
 var exp = new Date();exp.setTime(exp.getTime() - 1);var cval=getCookie('associator_name');
 if(cval!=null)document.cookie= name + "associator_name="+cval+";expires="+exp.toGMTString();
-var h="<a href='http://boot.2shui.com.cn/login/weibo'>" +
-		"<img src='http://timg.sjs.sinajs.cn/t4/appstyle/widget/images/loginButton/loginButton_18.png'></a>";
+var h="<a style='text-decoration:none;' href='http://boot.2shui.com.cn/login/qq'>" +
+		"<img src='http://img.2shui.com.cn/qq.png'></a>"+
+		"<a style='text-decoration:none;' href='http://boot.2shui.com.cn/login/weibo'>" +
+		"<img src='http://img.2shui.com.cn/weibo.png'></a>";
 $("#associator").html(h);
 }
 $sinaMiniBlogShare(document.getElementById("imgMark"));
 associator();
-var interested = function(){
-	var times = Math.ceil(Math.random()*3);
+var times;
+function interested(name, page){
+	times = Math.ceil(Math.random()*3);
 	if(0 == times%3){
 		$.ajax({url:uri+"/book/interested",
 			async:false,
+			dataType: 'jsonp',
+			xhrFields:{withCredentials:true},
+			crossDomain:true,
 			success:function(data){
-			console.log(data);
-			console.log(data.sign);
+				if('nologin' == data.sign) {}else{
+					$("#share_box").attr('class', 'share_box');
+					$("#share_inner").attr('class', 'share_inner');
+					$("#share_inner").html(data.msg+'<br/>--<b>'+data.user+'</b>');
+				}
+				console.log(data);
+				console.log(data.sign);
 		}});
 	}
 }

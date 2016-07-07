@@ -1,4 +1,4 @@
-package com.shui.web.model;
+package com.shui.web.bean;
 
 import java.io.Serializable;
 
@@ -6,7 +6,7 @@ import java.io.Serializable;
  * 读书笔记实体
  * @author <a href="mailto:zgjlovelife@gmail.com">ZGJ</a>
  * */
-public class Marks implements Serializable {
+public class NoteMark implements Serializable {
 
 	/**
 	 * 
@@ -14,27 +14,17 @@ public class Marks implements Serializable {
 	private static final long serialVersionUID = -1893480496989872926L;
 	
 	private Long id;
-	private Long customerId;
+	private String nickName;		// not work?!
+	private String customerName;
 	private String bookName;
 	private int bookNum;
 	private String markText;
 	private String note;
-	public Marks(){}
-	public Marks(String bookName, int bookNum) {
-		this.bookName = bookName;
-		this.bookNum = bookNum;
-	}
 	public Long getId() {
 		return id;
 	}
 	public void setId(Long id) {
 		this.id = id;
-	}
-	public Long getCustomerId() {
-		return customerId;
-	}
-	public void setCustomerId(Long customerId) {
-		this.customerId = customerId;
 	}
 	public String getBookName() {
 		return bookName;
@@ -59,5 +49,17 @@ public class Marks implements Serializable {
 	}
 	public void setNote(String note) {
 		this.note = note;
+	}
+	public String getNickName() {
+		return nickName;
+	}
+	public void setNickName(String nickName) {
+		this.nickName = nickName;
+	}
+	public String getCustomerName() {
+		return customerName;
+	}
+	public void setCustomerName(String customerName) {
+		this.customerName = customerName;
 	}
 }
