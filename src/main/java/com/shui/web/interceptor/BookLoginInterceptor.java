@@ -16,7 +16,7 @@ public class BookLoginInterceptor implements HandlerInterceptor {
 	@Override
 	public boolean preHandle(HttpServletRequest request,
 			HttpServletResponse response, Object handler) throws Exception {
-		if (null == request.getSession().getAttribute(AppConfig.BOOK_LOGIN) && false) {
+		if (null == request.getSession().getAttribute(AppConfig.BOOK_LOGIN)) {
 			String callbackFunName = request.getParameter("callback");
 			
 			response.getOutputStream().write((callbackFunName+"({\"sign\":\"nologin\"})").getBytes());
